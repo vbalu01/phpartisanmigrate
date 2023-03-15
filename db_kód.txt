@@ -1,0 +1,61 @@
+Table app.users{
+id int [PK, increment]
+email varchar [not null]
+password varchar [not null]
+u_fullname varcahr [NOT NULL]
+}
+Table app.restaurants{
+id int [PK, increment]
+email varcahr [NOT NULL]
+r_name varchar [not null]
+password varcahr [NOT NULL]
+address varcahr [NOT NULL]
+}
+
+Table app.couriers{
+id int [PK, increment]
+email varcahr [NOT NULL]
+c_name varcahr [NOT NULL]
+password varcahr [NOT NULL]
+}
+Table app.foods{
+id int [PK, not null]
+r_id int [NOT NULL, ref: > app.restaurants.id]
+f_name varchar [not null]
+c_id int [NOT NULL, ref: > app.categories.id]
+description varchar
+price int [NOT NULL]
+}
+Table app.categories{
+id int [PK, increment]
+c_name varchar [not null]
+}
+Table app.orders{
+id int [PK, increment]
+c_id INT [ref: > app.couriers.id]
+a_id INT [ref: > app.addresses.id]
+o_date datetime [NOT NULL]
+o_status int [NOT NULL]
+payment_method int [NOT NULL]
+full_price int [NOT NULL]
+}
+
+Table app.orderFoods{
+f_id int [PK, ref: > app.foods.id]
+o_id int [PK, ref: > app.orders.id]
+count int [NOT NULL]
+}
+
+Table app.addresses{
+id int [PK, NOT NULL]
+u_id int [NOT NULL, ref: > app.users.id]
+a_name varchar [NOT NULL]
+address varchar [NOT NULL]
+phone varchar [NOT NULL]
+other varcahr
+}
+
+Table app.log{
+log varcahr [NOT NULL]
+date datetime [NOT NULL]
+}
