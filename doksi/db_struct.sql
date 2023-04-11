@@ -4,24 +4,25 @@ CREATE TABLE `app`.`users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `u_fullname` varcahr NOT NULL,
+  `u_fullname` varchar(255) NOT NULL,
   `available` boolean NOT NULL
 );
 
 CREATE TABLE `app`.`restaurants` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `email` varcahr NOT NULL,
+  `email` varchar(255) NOT NULL,
   `r_name` varchar(255) NOT NULL,
-  `password` varcahr NOT NULL,
-  `address` varcahr NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city_id` int NOT NULL, 
   `available` boolean NOT NULL
 );
 
 CREATE TABLE `app`.`couriers` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `email` varcahr NOT NULL,
-  `c_name` varcahr NOT NULL,
-  `password` varcahr NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `c_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `available` boolean NOT NULL
 );
 
@@ -65,11 +66,11 @@ CREATE TABLE `app`.`addresses` (
   `address` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `available` boolean NOT NULL,
-  `other` varcahr
+  `other` varchar(255)
 );
 
 CREATE TABLE `app`.`log` (
-  `log` varcahr NOT NULL,
+  `log` varchar(255) NOT NULL,
   `date` datetime NOT NULL
 );
 
