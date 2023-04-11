@@ -1,0 +1,88 @@
+CREATE SCHEMA `app`;
+
+CREATE TABLE `app`.`users` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `u_fullname` varcahr NOT NULL,
+  `available` boolean NOT NULL
+);
+
+CREATE TABLE `app`.`restaurants` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `email` varcahr NOT NULL,
+  `r_name` varchar(255) NOT NULL,
+  `password` varcahr NOT NULL,
+  `address` varcahr NOT NULL,
+  `available` boolean NOT NULL
+);
+
+CREATE TABLE `app`.`couriers` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `email` varcahr NOT NULL,
+  `c_name` varcahr NOT NULL,
+  `password` varcahr NOT NULL,
+  `available` boolean NOT NULL
+);
+
+CREATE TABLE `app`.`foods` (
+  `id` int PRIMARY KEY NOT NULL,
+  `r_id` int NOT NULL,
+  `f_name` varchar(255) NOT NULL,
+  `c_id` int NOT NULL,
+  `description` varchar(255),
+  `price` int NOT NULL,
+  `available` boolean NOT NULL
+);
+
+CREATE TABLE `app`.`categories` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `c_name` varchar(255) NOT NULL,
+  `available` boolean NOT NULL
+);
+
+CREATE TABLE `app`.`orders` (
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `c_id` INT,
+  `a_id` INT,
+  `o_date` datetime NOT NULL,
+  `o_status` int NOT NULL,
+  `payment_method` int NOT NULL,
+  `full_price` int NOT NULL
+);
+
+CREATE TABLE `app`.`orderFoods` (
+  `f_id` int,
+  `o_id` int,
+  `count` int NOT NULL,
+  PRIMARY KEY (`f_id`, `o_id`)
+);
+
+CREATE TABLE `app`.`addresses` (
+  `id` int PRIMARY KEY NOT NULL,
+  `u_id` int NOT NULL,
+  `a_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `available` boolean NOT NULL,
+  `other` varcahr
+);
+
+CREATE TABLE `app`.`log` (
+  `log` varcahr NOT NULL,
+  `date` datetime NOT NULL
+);
+
+ALTER TABLE `app`.`foods` ADD FOREIGN KEY (`r_id`) REFERENCES `app`.`restaurants` (`id`);
+
+ALTER TABLE `app`.`foods` ADD FOREIGN KEY (`c_id`) REFERENCES `app`.`categories` (`id`);
+
+ALTER TABLE `app`.`orders` ADD FOREIGN KEY (`c_id`) REFERENCES `app`.`couriers` (`id`);
+
+ALTER TABLE `app`.`orders` ADD FOREIGN KEY (`a_id`) REFERENCES `app`.`addresses` (`id`);
+
+ALTER TABLE `app`.`orderFoods` ADD FOREIGN KEY (`f_id`) REFERENCES `app`.`foods` (`id`);
+
+ALTER TABLE `app`.`orderFoods` ADD FOREIGN KEY (`o_id`) REFERENCES `app`.`orders` (`id`);
+
+ALTER TABLE `app`.`addresses` ADD FOREIGN KEY (`u_id`) REFERENCES `app`.`users` (`id`);

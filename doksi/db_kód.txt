@@ -3,6 +3,7 @@ id int [PK, increment]
 email varchar [not null]
 password varchar [not null]
 u_fullname varcahr [NOT NULL]
+available boolean [NOT NULL]
 }
 Table app.restaurants{
 id int [PK, increment]
@@ -10,6 +11,7 @@ email varcahr [NOT NULL]
 r_name varchar [not null]
 password varcahr [NOT NULL]
 address varcahr [NOT NULL]
+available boolean [NOT NULL]
 }
 
 Table app.couriers{
@@ -17,6 +19,7 @@ id int [PK, increment]
 email varcahr [NOT NULL]
 c_name varcahr [NOT NULL]
 password varcahr [NOT NULL]
+available boolean [NOT NULL]
 }
 Table app.foods{
 id int [PK, not null]
@@ -25,10 +28,12 @@ f_name varchar [not null]
 c_id int [NOT NULL, ref: > app.categories.id]
 description varchar
 price int [NOT NULL]
+available boolean [NOT NULL]
 }
 Table app.categories{
 id int [PK, increment]
 c_name varchar [not null]
+available boolean [NOT NULL]
 }
 Table app.orders{
 id int [PK, increment]
@@ -52,6 +57,7 @@ u_id int [NOT NULL, ref: > app.users.id]
 a_name varchar [NOT NULL]
 address varchar [NOT NULL]
 phone varchar [NOT NULL]
+available boolean [NOT NULL]
 other varcahr
 }
 
