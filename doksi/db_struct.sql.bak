@@ -14,7 +14,7 @@ CREATE TABLE `app`.`restaurants` (
   `r_name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `city_postalcode` int NOT NULL, 
+  `city_id` int NOT NULL, 
   `available` boolean NOT NULL
 );
 
