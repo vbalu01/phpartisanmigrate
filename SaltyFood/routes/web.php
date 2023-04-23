@@ -42,6 +42,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/teszt',[App\Http\Controllers\dbController::class,'teszt']);
+
 Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function () {
     Route::get('/logout',[App\Http\Controllers\authController::class,'logout']);
 });
