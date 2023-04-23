@@ -38,6 +38,10 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'default',
+        ],
+        'user' => [
+            'driver' => 'session',
             'provider' => 'users',
         ],
         'courier'=>[
@@ -72,6 +76,10 @@ return [
     */
 
     'providers' => [
+        'default' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Users::class,
+        ],
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\Users::class,

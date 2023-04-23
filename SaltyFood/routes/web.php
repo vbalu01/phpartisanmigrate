@@ -1,6 +1,7 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/login', function () {
+    if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+        return redirect('/');
+    }
+     return view('login');
+})->name('login');
+
+
+Route::post('/logincheck', [\App\Http\Controllers\authController::class,'login']);
 Route::get('/', function () {
-    return view('login');
+    return view('index');
+});
+
+Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function () {
+    Route::get('/logout',[App\Http\Controllers\authController::class,'logout']);
 });
