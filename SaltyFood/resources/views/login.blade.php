@@ -4,7 +4,7 @@
 <!-- Mirrored from colorlib.com/etc/lf/Login_v6/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 23 Apr 2023 18:40:49 GMT -->
 
 <head>
-    <title>Login V6</title>
+    <title>Bejelentkezés</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,7 +104,7 @@
                 <form action="/logincheck" method="post" class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title p-b-70">
-                        Welcome
+                        Üdvözöllek
                     </span>
                     <span class="login100-form-avatar">
                         <img src="img/login_images/avatar-01.png" alt="AVATAR">
@@ -119,24 +119,24 @@
                     </div>
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Login
+                            Belépés
                         </button>
                     </div>
                     <ul class="login-more p-t-190">
                         <li class="m-b-8">
                             <span class="txt1">
-                                Forgot
+                                Elfelejtett
                             </span>
                             <a href="#" class="txt2">
-                                Username / Password?
+                                Felhasználónév / Jelszó?
                             </a>
                         </li>
                         <li>
                             <span class="txt1">
-                                Don’t have an account?
+                                Nincs fiókja?
                             </span>
                             <a href="#" class="txt2">
-                                Sign up
+                                Regisztráljon
                             </a>
                         </li>
                     </ul>
