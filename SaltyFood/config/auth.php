@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'courier'=>[
+            'driver' => 'session',
+            'provider' => 'couriers',
+        ],
+        'restaurant'=>[
+            'driver' => 'session',
+            'provider' => 'restaurants',
+        ],
+        'admin'=>[
+            'driver' => 'session',
+            'provider' => 'admins',
+        ]
     ],
 
     /*
@@ -62,9 +74,20 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Users::class,
         ],
-
+        'couriers'=>[
+            'driver' => 'eloquent',
+            'model' => App\Models\couriers::class,
+        ],
+        'restaurants'=>[
+            'driver' => 'eloquent',
+            'model' => App\Models\restaurants::class,
+        ],
+        'admins'=>[
+            'driver' => 'eloquent',
+            'model' => App\Models\Users::class,
+        ]
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
