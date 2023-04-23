@@ -25,8 +25,19 @@ Route::get('/login', function () {
     }
 })->name('login');
 
+Route::get('/register', function () {
+    if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+        return redirect('/');
+    }else
+    {
+        return view('register',['wronglogin'=>false]);
+    }
+
+})->name('register');
+
 
 Route::post('/logincheck', [\App\Http\Controllers\authController::class,'login']);
+Route::post('/registercheck', [\App\Http\Controllers\authController::class,'userRegister']);
 Route::get('/', function () {
     return view('index');
 });
