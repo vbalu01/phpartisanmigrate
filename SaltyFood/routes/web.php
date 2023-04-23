@@ -17,7 +17,12 @@ Route::get('/login', function () {
     if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
         return redirect('/');
     }
-     return view('login');
+    if ((Session::get('wronglogin'))==true) {
+        return view('login',['wronglogin'=>true]);
+    }else
+    {
+        return view('login',['wronglogin'=>false]);
+    }
 })->name('login');
 
 

@@ -22,23 +22,32 @@ class authController extends Controller
         'email' => $email,
         'password' => hasheles($password)
     ])->first();
-    if ($loginEntity) {
+
+    if ($loginEntity!=null) {
         Auth::guard('user')->login($loginEntity);
     }
 
-    if (!$loginEntity) {
+    if ($loginEntity==null) {
         $loginEntity = restaurants::where([
             'email' => $email,
             'password' => hasheles($password)
         ])->first();
-        Auth::guard('restaurant')->login($loginEntity);
+        if ($loginEntity!=null) {
+            Auth::guard('restaurant')->login($loginEntity);
+        }
     }
-    if (!$loginEntity) {
+
+    if ($loginEntity==null) {
         $loginEntity = couriers::where([
             'email' => $email,
             'password' => hasheles($password)
         ])->first();
-        Auth::guard('courier')->login($loginEntity);
+        if ($loginEntity!=null) {
+            Auth::guard('courier')->login($loginEntity);
+        }
+    }
+    if ($loginEntity==null) {
+        return redirect('/login')->with('wronglogin', true);
     }
     return redirect('/');
    }
