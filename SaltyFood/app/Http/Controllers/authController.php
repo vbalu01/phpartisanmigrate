@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\couriers;
+use App\Models\DefUser;
 use App\Models\restaurants;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
 
 class authController extends Controller
 {
@@ -17,16 +18,16 @@ class authController extends Controller
     $email=$request->post('email');
     $password=$request->post('pw');
 
-    $loginEntity=null;
+
     $loginEntity = Users::where([
         'email' => $email,
         'password' => hasheles($password)
     ])->first();
 
-    if ($loginEntity!=null) {
+    if ($loginEntity) {
+
         Auth::guard('user')->login($loginEntity);
     }
-
     if ($loginEntity==null) {
         $loginEntity = restaurants::where([
             'email' => $email,
@@ -46,11 +47,16 @@ class authController extends Controller
             Auth::guard('courier')->login($loginEntity);
         }
     }
+
+
     if ($loginEntity==null) {
         return redirect('/login')->with('wronglogin', true);
     }
-    return redirect('/');
+    return redirect('/store');
    }
+
+
+
 public function logout()
 {
     Session::flush();
@@ -76,7 +82,7 @@ public function userRegister(Request $request)
         'email' => $email
     ])->first();
 
-    
+
 
     if ($loginEntity==null) {
         $loginEntity = couriers::where([
@@ -89,24 +95,24 @@ public function userRegister(Request $request)
     if($loginEntity == null) {
         $f = null;
         $f = new Users();
-    
-        
-    
 
-            try {
-                $f->email =$email;
-                $f->password = hasheles($password);
-                $f->u_fullname=$fullname;
-                
-                $f->save();
-                $a='Sikeres mentés. Azonosító: ';
-                return redirect('/login')->with('message', $a);
-            } catch (\Throwable $th) {
-                dd("kaki");
-                return redirect('/login')->with('alert', 'Sikertelen mentés');
-            }
 
-        
+
+
+        try {
+            $f->email =$email;
+            $f->password = hasheles($password);
+            $f->u_fullname=$fullname;
+
+            $f->save();
+            $a='Sikeres mentés. Azonosító: ';
+            return redirect('/login')->with('message', $a);
+        } catch (\Throwable $th) {
+            dd("kaki");
+            return redirect('/login')->with('alert', 'Sikertelen mentés');
+        }
+
+
 
 }
 

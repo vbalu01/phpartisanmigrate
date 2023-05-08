@@ -14,7 +14,6 @@ class Users extends Authenticatable
         'password',
         'u_fullname',
     ];
-    protected $hidden = [
-        'password'
-    ];
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 }

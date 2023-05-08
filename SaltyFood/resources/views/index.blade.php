@@ -52,9 +52,15 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
+            @if ($data['loggedIn'])
+                <div class="header__top__right__auth">
+                    <a href="#"><i class="fa fa-user"></i> Fiók</a>
+                </div>
+            @else
+                <div class="header__top__right__auth">
+                    <a href="/login"><i class="fa fa-user"></i> Login</a>
+                </div>
+            @endif
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -94,12 +100,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
+                        @if ($data['usermail']!="")
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
+                        @endif
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
@@ -118,9 +126,17 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+
+                            @if ($data['loggedIn'])
+                                <div class="header__top__right__auth">
+                                    <a href="#"><i class="fa fa-user"></i> Fiók</a>
+                                </div>
+                            @else
+                                <div class="header__top__right__auth">
+                                    <a href="/login"><i class="fa fa-user"></i> Login</a>
+                                </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>

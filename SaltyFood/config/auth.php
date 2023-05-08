@@ -78,7 +78,7 @@ return [
     'providers' => [
         'default' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Users::class,
+            'model' => App\Models\DefUser::class,
         ],
         'users' => [
             'driver' => 'eloquent',
