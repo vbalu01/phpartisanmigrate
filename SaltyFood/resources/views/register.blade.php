@@ -132,7 +132,7 @@
                             <span class="txt1">
                                 Van fiókja?
                             </span>
-                            <a href="#" class="txt2">
+                            <a href="/login" class="txt2">
                                 Lépjen be!
                             </a>
                         </li>

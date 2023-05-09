@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function ()
 
 
 Route::get('/',[App\Http\Controllers\MainController::class,'mainPage'])->name('main');
+Route::get('/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('shop');
 
 Route::get('/teszt',[App\Http\Controllers\dbController::class,'teszt']);
 Route::post('addNewFood', [App\Http\Controllers\dbController::class,'addNewFood']);

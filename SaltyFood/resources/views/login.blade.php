@@ -136,7 +136,7 @@
                             <span class="txt1">
                                 Nincs fiókja?
                             </span>
-                            <a href="#" class="txt2">
+                            <a href="/register" class="txt2">
                                 Regisztráljon
                             </a>
                         </li>
