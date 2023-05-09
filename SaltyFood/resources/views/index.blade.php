@@ -192,10 +192,14 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>Ajánott éttermek</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
+                            @foreach ($data['restaurants'] as $da => $e)
+                                <li><a href="#">{{$e->r_name}}</a></li>
+                            @endforeach
+                            
+                            <!---<li><a href="#">Fresh Meat</a></li>
                             <li><a href="#">Vegetables</a></li>
                             <li><a href="#">Fruit & Nut Gifts</a></li>
                             <li><a href="#">Fresh Berries</a></li>
@@ -205,7 +209,7 @@
                             <li><a href="#">Fresh Onion</a></li>
                             <li><a href="#">Papayaya & Crisps</a></li>
                             <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            <li><a href="#">Fresh Bananas</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -250,12 +254,15 @@
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                    @foreach ($data['foods'] as $da => $e)
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
+                                <h5><a href="#">{{$e->f_name}}</a></h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3">
+                    @endforeach
+                    
+                    <!--<div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
                             <h5><a href="#">Dried Fruit</a></h5>
                         </div>
@@ -274,7 +281,7 @@
                         <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
                             <h5><a href="#">drink fruits</a></h5>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

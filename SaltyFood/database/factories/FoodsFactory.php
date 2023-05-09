@@ -326,6 +326,12 @@ class FoodsFactory extends Factory
             8
 
         ];
+
+        /*$imgs = [
+            "",
+            ""
+        ];*/
+
         return [
             'r_id' => $restID[$counter],
             'f_name'=>$termNev[$counter],

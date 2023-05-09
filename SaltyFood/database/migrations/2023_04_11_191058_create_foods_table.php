@@ -21,6 +21,7 @@ class CreateFoodsTable extends Migration
             $table->string("description",255);
             $table->integer("price");
             $table->boolean("available");
+            $table->string("img_src", 255)->nullable(true);
             $table->timestamps();
 
             $table->foreign('r_id')->references('id')->on('restaurants')->onDelete('cascade')->onUpdate('cascade');
