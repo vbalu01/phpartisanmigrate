@@ -13,14 +13,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="{{ asset('img/logo.png') }}" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -44,7 +44,7 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
-                <img src="img/hu-ncf.png" alt="">
+                <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                 <div>Magyar</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -63,17 +63,23 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Főoldal</a></li>
+                <li class="active"><a href="
+                    @if ($data['loggedIn'])
+                        /User
+                    @else
+                       /
+                    @endif
+                ">Főoldal</a></li>
                 <li><a href="./shop-grid.html">Bolt</a></li>
 
                 <li><a href="#">Rólunk</a>
-                              
+
                               </li>
                               <li><a href="#">Kosár</a>
-                                
+
                               </li>
                               <li><a href="#">Fizetés</a>
-                                
+
                               </li>
 
             </ul>
@@ -118,7 +124,7 @@
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <img src="img/hu-ncf.jpg" alt="">
+                                <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
@@ -145,34 +151,46 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="
+                        @if ($data['loggedIn'])
+                            /User
+                        @else
+                            /
+                        @endif
+                    "><img src="{{ asset('img/logo.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Főoldal</a></li>
+                            <li class="active"><a href="
+                                @if ($data['loggedIn'])
+                                    /User
+                                @else
+                                /
+                                @endif
+                            ">Főoldal</a></li>
                             <li><a href="/shop">Bolt</a></li>
-                  
+
                             <li><a href="#">Kategóriák</a>
-                          
+
                                 <ul class="header__menu__dropdown">
                                 @foreach ($data['categories'] as $da => $e)
-                                
-                           
+
+
                                 <li><a href="#">{{$e -> c_name}}</a></li>
                            @endforeach
-                                 
+
                                 </ul>
                             </li>
                             </li>
                             <li><a href="#">Kosár</a>
-                              
+
                             </li>
                             <li><a href="#">Fizetés</a>
-                              
+
                             </li>
-  
+
                         </ul>
                     </nav>
                 </div>
@@ -205,9 +223,23 @@
                         </div>
                         <ul>
                             @foreach ($data['restaurants'] as $da => $e)
-                                <li><a href="#">{{$e->r_name}}</a></li>
+                                <li>
+                                    <form id="r_form_{{$e->r_name}}"
+                                        action="
+                                            @if ($data['loggedIn'])
+                                                {{ route('User_store_filter_vendor') }}
+                                            @else
+                                                {{ route('store_filter_vendor') }}
+                                            @endif"
+                                        method="POST">
+                                        <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+                                        <input hidden type="text" id="rid" name="rid" value="{{$e->id}}">
+                                        <a onclick="document.getElementById('r_form_{{$e->r_name}}').submit();">{{$e->r_name}}</a>
+                                    </form>
+
+                                </li>
                             @endforeach
-                            
+
                             <!---<li><a href="#">Fresh Meat</a></li>
                             <li><a href="#">Vegetables</a></li>
                             <li><a href="#">Fruit & Nut Gifts</a></li>
@@ -221,15 +253,15 @@
                             <li><a href="#">Fresh Bananas</a></li>-->
                         </ul>
 </div>
-       
+
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                         
-                            
-                               
+
+
+
 
                                 <input type="text" placeholder="Mit keres?">
                                 <button type="submit" class="site-btn">Keresés</button>
@@ -245,7 +277,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                    <div class="hero__item set-bg" data-setbg="{{ asset('img/hero/banner.jpg') }}">
                         <div class="hero__text">
                             <span>Minőségi ételek</span>
                             <h2>100%-ban<br />magyar termék</h2>
@@ -272,7 +304,7 @@
                             </div>
                         </div>
                     @endforeach
-                    
+
                     <!--<div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
                             <h5><a href="#">Dried Fruit</a></h5>
@@ -301,7 +333,7 @@
 
     <!-- Featured Section Begin -->
     <section class="featured spad">
-        <div class="container">
+        <div class="container" id="filterable">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
@@ -311,10 +343,23 @@
                         <ul>
                             <li class="active" data-filter="*">Összes</li>
                             @foreach ($data['categories'] as $da => $e)
-                            <li>{{$e -> c_name}}</li>
+                            <li onclick="document.getElementById('cat_form_{{$e -> c_name}}').submit()">
+                                {{$e -> c_name}}
+                                <form id="cat_form_{{$e -> c_name}}"
+                                    action="
+                                        @if ($data['loggedIn'])
+                                            {{ route('User_main_filter_cat') }}#filterable
+                                        @else
+                                            {{ route('main_filter_cat') }}#filterable
+                                        @endif"
+                                    method="POST">
+                                    <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+                                    <input hidden type="text" id="fname" name="fname" value="{{$e -> c_name}}">
+                                </form>
+                            </li>
 
                            @endforeach
-                            
+
                         </ul>
                     </div>
                 </div>
@@ -337,10 +382,10 @@
                     </div>
                 </div>
                     @endforeach
-              
-             
-              
-             
+
+
+
+
             </div>
         </div>
     </section>
@@ -352,12 +397,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="img/banner/banner-1.jpg" alt="">
+                        <img src="{{ asset('img/banner/banner-1.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="img/banner/banner-2.jpg" alt="">
+                        <img src="{{ asset('img/banner/banner-2.jpg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -384,12 +429,12 @@
                                         <span>{{$e -> price}} HUF</span>
                                     </div>
                                 </a>
-                              
-                              
+
+
                             </div>
                     @endforeach
-                            
-                        
+
+
                         </div>
                     </div>
                 </div>
@@ -408,11 +453,11 @@
                                         <span>{{$e -> price}} HUF</span>
                                     </div>
                                 </a>
-                              
-                              
+
+
                             </div>
                     @endforeach
-                            
+
                         </div>
                     </div>
                 </div>
@@ -431,11 +476,11 @@
                                         <span>{{$e -> price}} HUF</span>
                                     </div>
                                 </a>
-                              
-                              
+
+
                             </div>
                     @endforeach
-                            
+
                         </div>
                     </div>
                 </div>
@@ -458,7 +503,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="img/blog/blog-1.jpg" alt="">
+                            <img src="{{ asset('img/blog/blog-1.jpg') }}" alt="">
                         </div>
                         <div class="blog__item__text">
                             <ul>
@@ -473,7 +518,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="img/blog/blog-2.jpg" alt="">
+                            <img src="{{ asset('img/blog/blog-2.jpg') }}" alt="">
                         </div>
                         <div class="blog__item__text">
                             <ul>
@@ -488,7 +533,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="img/blog/blog-3.jpg" alt="">
+                            <img src="{{ asset('img/blog/blog-3.jpg') }}" alt="">
                         </div>
                         <div class="blog__item__text">
                             <ul>
@@ -511,7 +556,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
-         
+
                         <ul>
                             <li>Cím: 9769 Salty Incidens utca 2</li>
                             <li>Telefon: +36 20 560 21 38</li>
@@ -558,7 +603,7 @@
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
   Copyright &copy;<script>document.write(new Date().getFullYear());</script> Minden jog fenntartva | A templatet saltyval csináltuk <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">php partisan migrante</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__payment"><img src="{{ asset('img/payment-item.png') }}" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -567,14 +612,14 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/mixitup.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
 
 

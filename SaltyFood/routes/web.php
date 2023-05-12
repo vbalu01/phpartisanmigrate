@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/login', function () {
     if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
-        return redirect('/store');
+        return redirect('/User');
     }
     if ((Session::get('wronglogin'))==true) {
         return view('login',['wronglogin'=>true]);
@@ -40,7 +40,10 @@ Route::post('/logincheck', [\App\Http\Controllers\authController::class,'login']
 Route::post('/registercheck', [\App\Http\Controllers\authController::class,'userRegister']);
 Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function () {
     Route::get('/logout',[App\Http\Controllers\authController::class,'logout']);
-    Route::get('/store',[App\Http\Controllers\MainController::class,'mainPage']);
+    Route::get('/User',[App\Http\Controllers\MainController::class,'mainPage']);
+    Route::get('/User/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('User_shop');
+    Route::POST('/User/filter',[App\Http\Controllers\MainController::class,'main_filter_cat'])->name("User_main_filter_cat");
+    Route::POST('/User/shop/filter',[App\Http\Controllers\MainController::class,'shop_filter_vend'])->name("User_store_filter_vendor");
 });
 
 
@@ -48,6 +51,8 @@ Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function ()
 
 Route::get('/',[App\Http\Controllers\MainController::class,'mainPage'])->name('main');
 Route::get('/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('shop');
+Route::POST('/filter',[App\Http\Controllers\MainController::class,'main_filter_cat'])->name("main_filter_cat");
+Route::POST('/shop/filter',[App\Http\Controllers\MainController::class,'shop_filter_vend'])->name("store_filter_vendor");
 
 Route::get('/teszt',[App\Http\Controllers\dbController::class,'teszt']);
 Route::post('addNewFood', [App\Http\Controllers\dbController::class,'addNewFood']);

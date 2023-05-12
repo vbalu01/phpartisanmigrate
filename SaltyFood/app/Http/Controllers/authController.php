@@ -52,7 +52,7 @@ class authController extends Controller
     if ($loginEntity==null) {
         return redirect('/login')->with('wronglogin', true);
     }
-    return redirect('/store');
+    return redirect('/User');
    }
 
 
