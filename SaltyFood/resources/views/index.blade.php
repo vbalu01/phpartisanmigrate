@@ -620,6 +620,8 @@
     <script src="{{ asset('js/mixitup.min.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/models.js') }}"></script>
+    <script src="{{ asset('js/shoppingCart.js') }}"></script>
 
 
 
