@@ -63,24 +63,24 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="
-                    @if ($data['loggedIn'])
-                        /User
-                    @else
-                       /
-                    @endif
-                ">Főoldal</a></li>
+                <li class="active">
+                    <a href="
+                        @if ($data['loggedIn']) /User
+                        @else /
+                        @endif
+                    ">Főoldal</a>
+                </li>
                 <li><a href="./shop-grid.html">Bolt</a></li>
 
                 <li><a href="#">Rólunk</a>
 
-                              </li>
-                              <li><a href="#">Kosár</a>
+                </li>
+                <li><a href="/shoppingCart">Kosár</a>
 
-                              </li>
-                              <li><a href="#">Fizetés</a>
+                </li>
+                <li><a href="#">Fizetés</a>
 
-                              </li>
+                </li>
 
             </ul>
         </nav>
@@ -106,13 +106,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
-                        @if ($data['usermail']!="")
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
-                                <li>Ingyenes kiszállítás 30000 Ft felett!</li>
-                            </ul>
-                        </div>
+                        @if ($data['usermail'] != '')
+                            <div class="header__top__left">
+                                <ul>
+                                    <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
+                                    <li>Ingyenes kiszállítás 30000 Ft felett!</li>
+                                </ul>
+                            </div>
                         @endif
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -151,35 +151,33 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="
-                        @if ($data['loggedIn'])
-                            /User
+                        <a
+                            href="
+                        @if ($data['loggedIn']) /User
                         @else
-                            /
-                        @endif
-                    "><img src="{{ asset('img/logo.png') }}" alt=""></a>
+                            / @endif
+                    "><img
+                                src="{{ asset('img/logo.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="
-                                @if ($data['loggedIn'])
-                                    /User
+                            <li class="active"><a
+                                    href="
+                                @if ($data['loggedIn']) /User
                                 @else
-                                /
-                                @endif
-                            ">Főoldal</a></li>
+                                / @endif
+                            ">Főoldal</a>
+                            </li>
                             <li><a href="/shop">Bolt</a></li>
 
                             <li><a href="#">Kategóriák</a>
 
                                 <ul class="header__menu__dropdown">
-                                @foreach ($data['categories'] as $da => $e)
-
-
-                                <li><a href="#">{{$e -> c_name}}</a></li>
-                           @endforeach
+                                    @foreach ($data['categories'] as $da => $e)
+                                        <li><a href="#">{{ $e->c_name }}</a></li>
+                                    @endforeach
 
                                 </ul>
                             </li>
@@ -197,7 +195,6 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">Ár: <span>$150.00</span></div>
@@ -224,17 +221,17 @@
                         <ul>
                             @foreach ($data['restaurants'] as $da => $e)
                                 <li>
-                                    <form id="r_form_{{$e->r_name}}"
+                                    <form id="r_form_{{ $e->r_name }}"
                                         action="
-                                            @if ($data['loggedIn'])
-                                                {{ route('User_store_filter_vendor') }}
+                                            @if ($data['loggedIn']) {{ route('User_store_filter_vendor') }}
                                             @else
-                                                {{ route('store_filter_vendor') }}
-                                            @endif"
+                                                {{ route('store_filter_vendor') }} @endif"
                                         method="POST">
                                         <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
-                                        <input hidden type="text" id="rid" name="rid" value="{{$e->id}}">
-                                        <a onclick="document.getElementById('r_form_{{$e->r_name}}').submit();">{{$e->r_name}}</a>
+                                        <input hidden type="text" id="rid" name="rid"
+                                            value="{{ $e->id }}">
+                                        <a
+                                            onclick="document.getElementById('r_form_{{ $e->r_name }}').submit();">{{ $e->r_name }}</a>
                                     </form>
 
                                 </li>
@@ -252,7 +249,7 @@
                             <li><a href="#">Oatmeal</a></li>
                             <li><a href="#">Fresh Bananas</a></li>-->
                         </ul>
-</div>
+                    </div>
 
                 </div>
                 <div class="col-lg-9">
@@ -277,18 +274,95 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="{{ asset('img/hero/banner.jpg') }}">
-                        <div class="hero__text">
-                            <span>Minőségi ételek</span>
-                            <h2>100%-ban<br />magyar termék</h2>
-                            <p>Akár házhozszállítással</p>
-                            <a href="#" class="primary-btn">Rendeljen most</a>
+ <!-- Latest Product Section Begin
+    <section class="latest-product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Új SaltyFoodok</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <div class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Legjobbak</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Salty Értékelés</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </section>
+ Latest Product Section End -->
+                </div>
+            </div>
+        </div>
+        </div>
     </section>
     <!-- Hero Section End -->
 
@@ -298,9 +372,16 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                     @foreach ($data['foods'] as $da => $e)
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
-                                <h5><a href="#">{{$e->f_name}}</a></h5>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                            <div class="featured__item">
+                                <div class="categories__item set-bg"
+                                    data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
+                                    <h5><a  class="food_name">{{ $e->f_name }}</a></h5>
+                                    <ul class="featured__item__pic__hover">
+                                        <li><a href="#"><i class="fa  fa-info"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -331,6 +412,11 @@
     </section>
     <!-- Categories Section End -->
 
+
+
+
+
+
     <!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container" id="filterable">
@@ -341,47 +427,70 @@
                     </div>
                     <div class="featured__controls">
                         <ul>
-                            <li class="active" data-filter="*">Összes</li>
-                            @foreach ($data['categories'] as $da => $e)
-                            <li onclick="document.getElementById('cat_form_{{$e -> c_name}}').submit()">
-                                {{$e -> c_name}}
-                                <form id="cat_form_{{$e -> c_name}}"
+                            <li
+                            @if ($data['selected_categ']=="all")
+                                class="active"
+                            @endif
+                            onclick="document.getElementById('cat_form_all').submit()"
+                            >
+                            Összes
+                                <form id="cat_form_all"
                                     action="
-                                        @if ($data['loggedIn'])
-                                            {{ route('User_main_filter_cat') }}#filterable
-                                        @else
-                                            {{ route('main_filter_cat') }}#filterable
-                                        @endif"
+                                    @if ($data['loggedIn']) {{ route('User_main_filter_cat') }}#filterable
+                                    @else
+                                        {{ route('main_filter_cat') }}#filterable @endif"
                                     method="POST">
                                     <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
-                                    <input hidden type="text" id="fname" name="fname" value="{{$e -> c_name}}">
+                                    <input hidden type="text" id="fname" name="fname" value="all">
                                 </form>
                             </li>
-
-                           @endforeach
+                            @foreach ($data['categories'] as $da => $e)
+                                <li
+                                @if ($data['selected_categ']==$e->c_name)
+                                    class="active"
+                                @endif
+                                onclick="document.getElementById('cat_form_{{ $e->c_name }}').submit()">
+                                    {{ $e->c_name }}
+                                    <form id="cat_form_{{ $e->c_name }}"
+                                        action="
+                                        @if ($data['loggedIn']) {{ route('User_main_filter_cat') }}#filterable
+                                        @else
+                                            {{ route('main_filter_cat') }}#filterable @endif"
+                                        method="POST">
+                                        <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
+                                        <input hidden type="text" id="fname" name="fname"
+                                            value="{{ $e->c_name }}">
+                                    </form>
+                                </li>
+                            @endforeach
 
                         </ul>
                     </div>
                 </div>
             </div>
+
+
+
+
+
             <div class="row featured__filter">
-            @foreach ($data['allfoods'] as $da => $e)
-            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">{{$e -> f_name}}</a></h6>
-                            <h5>{{$e -> price}} HUF</h5>
+                @foreach ($data['allfoods'] as $da => $e)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg"
+                                data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
+                                <ul class="featured__item__pic__hover">
+                                    <li><a href="#"><i class="fa  fa-info"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">{{ $e->f_name }}</a></h6>
+                                <h5>{{ $e->price }} HUF</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    @endforeach
+                @endforeach
 
 
 
@@ -410,86 +519,9 @@
     </div>
     <!-- Banner End -->
 
-    <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Új SaltyFoodok</h4>
-                        <div class="latest-product__slider owl-carousel">
-                        @foreach ($data['foods'] as $da => $e)
-                        <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}"" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>{{$e -> f_name}}</h6>
-                                        <span>{{$e -> price}} HUF</span>
-                                    </div>
-                                </a>
 
 
-                            </div>
-                    @endforeach
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Legjobb SaltyFoodok</h4>
-                        <div class="latest-product__slider owl-carousel">
-                        @foreach ($data['foods'] as $da => $e)
-                        <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}"" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>{{$e -> f_name}}</h6>
-                                        <span>{{$e -> price}} HUF</span>
-                                    </div>
-                                </a>
-
-
-                            </div>
-                    @endforeach
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Salty Értékelés</h4>
-                        <div class="latest-product__slider owl-carousel">
-                        @foreach ($data['foods'] as $da => $e)
-                        <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}"" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>{{$e -> f_name}}</h6>
-                                        <span>{{$e -> price}} HUF</span>
-                                    </div>
-                                </a>
-
-
-                            </div>
-                    @endforeach
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Latest Product Section End -->
-
-    <!-- Blog Section Begin -->
+    <!-- Blog Section Begin
     <section class="from-blog spad">
         <div class="container">
             <div class="row">
@@ -548,7 +580,7 @@
             </div>
         </div>
     </section>
-    <!-- Blog Section End -->
+    Blog Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -600,10 +632,20 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Minden jog fenntartva | A templatet saltyval csináltuk <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">php partisan migrante</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="{{ asset('img/payment-item.png') }}" alt=""></div>
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script> Minden jog fenntartva | A templatet saltyval csináltuk <i
+                                    class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    target="_blank">php partisan migrante</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="{{ asset('img/payment-item.png') }}"
+                                alt=""></div>
                     </div>
                 </div>
             </div>
