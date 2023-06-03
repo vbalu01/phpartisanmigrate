@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
-    public function mainPage(Request $request)
+    public function mainPage()
     {
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
 
@@ -24,26 +24,32 @@ class MainController extends Controller
             $usermail = Auth::user()->email;
         }
 
-        return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g]);
+        return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>'all']);
 
     }
 
     public function main_filter_cat(Request $request)
     {
-        $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
+        if($request->fname=="all")
+        {
+            return redirect('/');
 
-        $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->inRandomOrder()->take(10)->get();
-        $catTMP=DB::table('categories')->select('id')->where([['c_name', '=', $request->fname]])->first();
+        }else{
+            $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
 
-        $tmp_f2 =  DB::table('foods')->select(['id', 'r_id', 'f_name', 'c_id', 'description', 'price', 'img_src'])->where([['available', '=', true]])->where([['c_id', '=', $catTMP->id]])->get();
-        $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
-        $loggedin = false;
-        $usermail = "";
-        if (Auth::user()!=null) {
-            $loggedin = true;
-            $usermail = Auth::user()->email;
+            $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->inRandomOrder()->take(10)->get();
+            $catTMP=DB::table('categories')->select('id')->where([['c_name', '=', $request->fname]])->first();
+
+            $tmp_f2 =  DB::table('foods')->select(['id', 'r_id', 'f_name', 'c_id', 'description', 'price', 'img_src'])->where([['available', '=', true]])->where([['c_id', '=', $catTMP->id]])->get();
+            $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
+            $loggedin = false;
+            $usermail = "";
+            if (Auth::user()!=null) {
+                $loggedin = true;
+                $usermail = Auth::user()->email;
+            }
+            return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>$request->fname]);
         }
-        return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g]);
     }
     public function shoppingPage(Request $request)
     {

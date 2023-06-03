@@ -1017,6 +1017,12 @@ ol {
 	font-weight: 700;
 }
 
+.latest-product__item__text a {
+	margin-left: 10px;
+    font-size: x-large;
+    color: #028614;
+}
+
 /*---------------------
   Form BLog
 -----------------------*/
@@ -3465,4 +3471,17 @@ ol {
 	.blog__details__hero__text h2 {
 		font-size: 24px;
 	}
+}
+
+.food_name{
+    width: fit-content;
+    border-color: #0484b6;
+    border-style:outset;
+    border-radius: 10%;
+    border-width: 3px;
+    background-color: #009a17 !important;
+    word-break: break-word;
+    font-size: 0.8vw !important;
+    transform: rotate(5deg);
+    box-shadow:-7px 8px 4px 0px #081e12a5;
 }
