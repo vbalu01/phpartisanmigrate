@@ -274,91 +274,7 @@
                             </div>
                         </div>
                     </div>
- <!-- Latest Product Section Begin
-    <section class="latest-product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Új SaltyFoodok</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($data['foods']->shuffle() as $da => $e)
-                                <div class="latest-prdouct__slider__item">
-                                    <div class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
-                                                alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>{{ $e->f_name }}</h6>
-                                            <span>{{ $e->price }} HUF</span>
-                                            <a href="#"><i class="fa  fa-info"></i></a>
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
 
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Legjobbak</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($data['foods']->shuffle() as $da => $e)
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
-                                                alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>{{ $e->f_name }}</h6>
-                                            <span>{{ $e->price }} HUF</span>
-                                            <a href="#"><i class="fa  fa-info"></i></a>
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                        </div>
-                                    </a>
-
-
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Salty Értékelés</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($data['foods']->shuffle() as $da => $e)
-                                <div class="latest-prdouct__slider__item">
-                                    <a href="#" class="latest-product__item">
-                                        <div class="latest-product__item__pic">
-                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
-                                                alt="">
-                                        </div>
-                                        <div class="latest-product__item__text">
-                                            <h6>{{ $e->f_name }}</h6>
-                                            <span>{{ $e->price }} HUF</span>
-                                            <a href="#"><i class="fa  fa-info"></i></a>
-                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                        </div>
-                                    </a>
-
-
-                                </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
- Latest Product Section End -->
                 </div>
             </div>
         </div>
@@ -379,7 +295,7 @@
                                     <h5><a  class="food_name">{{ $e->f_name }}</a></h5>
                                     <ul class="featured__item__pic__hover">
                                         <li><a href="#"><i class="fa  fa-info"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -481,7 +397,7 @@
                                 data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="fa  fa-info"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
                             <div class="featured__item__text">
@@ -519,7 +435,91 @@
     </div>
     <!-- Banner End -->
 
+ <!-- Latest Product Section Begin
+    <section class="latest-product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Új SaltyFoodok</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <div class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
 
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Legjobbak</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Salty Értékelés</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            @foreach ($data['foods']->shuffle() as $da => $e)
+                                <div class="latest-prdouct__slider__item">
+                                    <a href="#" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img src="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}""
+                                                alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{ $e->f_name }}</h6>
+                                            <span>{{ $e->price }} HUF</span>
+                                            <a href="#"><i class="fa  fa-info"></i></a>
+                                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        </div>
+                                    </a>
+
+
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ Latest Product Section End -->
 
     <!-- Blog Section Begin
     <section class="from-blog spad">
