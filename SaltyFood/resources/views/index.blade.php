@@ -182,7 +182,7 @@
                                 </ul>
                             </li>
                             </li>
-                            <li><a href="#">Kosár</a>
+                            <li><a href="./shoppingCart">Kosár</a>
 
                             </li>
                             <li><a href="#">Fizetés</a>
