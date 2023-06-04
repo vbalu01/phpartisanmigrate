@@ -61,7 +61,7 @@
                 <li><a href="/shop">Bolt</a></li>
             
                 <li><a href="/shoppingCart">Kosár</a></li>
-                <li><a href="/payment">Fizetés</a></li>
+        
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -132,7 +132,7 @@
                             <li class="active"><a href="./shop-grid.html">Bolt</a></li>
                          
                             <li><a href="/shoppingCart">Kosár</a></li>
-                            <li><a href="/payment">Fizetés</a></li>
+                            
                         </ul>
                     </nav>
                 </div>

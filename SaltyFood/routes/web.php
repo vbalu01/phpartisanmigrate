@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function ()
     Route::get('/User',[App\Http\Controllers\MainController::class,'mainPage']);
     Route::get('/User/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('User_shop');
     Route::get('/User/shoppingCart',[App\Http\Controllers\MainController::class,'shoppingCartPage'])->name('User_shoppingCart');
+    Route::get('/User/payment',[App\Http\Controllers\MainController::class,'paymentPage'])->name('User_payment');
     Route::POST('/User/filter',[App\Http\Controllers\MainController::class,'main_filter_cat'])->name("User_main_filter_cat");
     Route::POST('/User/shop/filter',[App\Http\Controllers\MainController::class,'shop_filter_vend'])->name("User_store_filter_vendor");
 });
@@ -53,6 +54,7 @@ Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function ()
 Route::get('/',[App\Http\Controllers\MainController::class,'mainPage'])->name('main');
 Route::get('/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('shop');
 Route::get('/shoppingCart',[App\Http\Controllers\MainController::class,'shoppingCartPage'])->name('shoppingCart');
+Route::get('/payment',[App\Http\Controllers\MainController::class,'paymentPage'])->name('payment');
 Route::POST('/filter',[App\Http\Controllers\MainController::class,'main_filter_cat'])->name("main_filter_cat");
 Route::POST('/shop/filter',[App\Http\Controllers\MainController::class,'shop_filter_vend'])->name("store_filter_vendor");
 

@@ -78,7 +78,7 @@
                 <li><a href="/shoppingCart">Kosár</a>
 
                 </li>
-                <li><a href="#">Fizetés</a>
+               
 
                 </li>
 
@@ -185,7 +185,7 @@
                             <li><a href="./shoppingCart">Kosár</a>
 
                             </li>
-                            <li><a href="#">Fizetés</a>
+                            
 
                             </li>
 
