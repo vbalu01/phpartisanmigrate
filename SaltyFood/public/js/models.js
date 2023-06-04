@@ -83,4 +83,34 @@ class ShoppingCart{
     GetCount(){
         return this.cartItems.length;
     }
+
+    GetFoodCount(id){
+        let db = 0;
+        
+        this.cartItems.forEach((element) => {
+            if(element.id === id){
+                db = element.count
+                return;
+            }
+        });
+
+        return db;
+    }
+
+    GetDataFromServer(){
+        let resp;
+        $.ajax({
+            type: "POST",
+            url: 'api/shoppingCartData',
+            async: false,
+            data: {
+                data: JSON.stringify(this.cartItems)
+            },
+            dataType: 'json',
+            success: function(response){
+                resp = response;
+            }
+          });
+          return resp;
+    }
 }

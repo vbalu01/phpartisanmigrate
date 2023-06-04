@@ -59,4 +59,3 @@ Route::POST('/shop/filter',[App\Http\Controllers\MainController::class,'shop_fil
 Route::get('/teszt',[App\Http\Controllers\dbController::class,'teszt']);
 Route::post('addNewFood', [App\Http\Controllers\dbController::class,'addNewFood']);
 
-

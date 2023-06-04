@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    
 </head>
 
 <body>
@@ -188,8 +189,8 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id="foodsTabble">
+                                <!--<tr>
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
                                         <h5>Vegetable’s Package</h5>
@@ -254,7 +255,7 @@
                                     <td class="shoping__cart__item__close">
                                         <span class="icon_close"></span>
                                     </td>
-                                </tr>
+                                </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -283,7 +284,7 @@
                     <div class="shoping__checkout">
                         <h5>Végösszeg</h5>
                         <ul>
-                            <li>Fizetendő <span>$454.98</span></li>
+                            <li>Fizetendő <span id="fullPriceSpanom"></span></li>
                         </ul>
                         <a href="/payment" class="primary-btn">Fizetés</a>
                     </div>
@@ -363,8 +364,24 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
-
+    <script src="{{ asset('js/models.js') }}"></script>
+    <script src="{{ asset('js/shoppingCart.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            let foods = shoppingCart.GetDataFromServer();
+            let fullPrice = 0;
+            foods.forEach((food) => {
+                console.log({ food });
+                let db = shoppingCart.GetFoodCount(food.id);
+                fullPrice += db*food.price;
+                $('#foodsTabble').append('<tr id="foodrow_'+food.id+'"><td class="shoping__cart__item"><img src="'+food.img_src+'" alt=""><h5>'+food.f_name+'</h5></td>' +
+                              '<td class="shoping__cart__price">'+food.price+' Ft</td><td class="shoping__cart__quantity"><div class="quantity">' +
+                              '<div class="pro-qty"><input type="text" value="'+db+'"></div></div></td><td class="shoping__cart__total">' +
+                              ''+db*food.price+' Ft</td><td class="shoping__cart__item__close"><span class="icon_close"></span></td></tr>')
+            });
+            $('#fullPriceSpanom').text(fullPrice + ' Ft.');
+        });
+    </script>
 </body>
 
 </html>

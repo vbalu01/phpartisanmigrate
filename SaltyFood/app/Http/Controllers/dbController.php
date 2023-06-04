@@ -80,4 +80,17 @@ class dbController extends Controller
 
         }
     }
+    
+    public function getShoppingCartData(Request $request){
+        $receivedData = json_decode($request->data);
+
+        $returnData = [];
+
+        foreach ($receivedData as $data) {
+            $tmp = DB::table('foods')->select(['id', 'f_name', 'description', 'price', 'img_src'])->where([['id', '=', $data->id]])->first();
+            array_push($returnData, $tmp);
+        }
+        
+        return json_encode($returnData);
+    }
 }
