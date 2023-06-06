@@ -9,7 +9,7 @@ class CartItem{
 
 class ShoppingCart{
     cartItems = [];
-    
+
     constructor(){
         if(window.localStorage.getItem('shoppingCart') != null){
             this.cartItems = JSON.parse(window.localStorage.getItem('shoppingCart'));
@@ -29,6 +29,17 @@ class ShoppingCart{
         if(!this.isInCart(id)) {
             this.cartItems.push(new CartItem(id, count));
             this.Save();
+
+            $('body').append(
+                "<div class='alert alert-success addCartpopUp'>"+
+                    "Sikeres kosárba rakás"+
+                "</div>"
+            )
+            setTimeout(function() {
+                $(".addCartpopUp").fadeOut("normal", function() {
+                    $(this).remove();
+                });
+            }, 2000);
         }
     }
 
@@ -69,7 +80,7 @@ class ShoppingCart{
 
     isInCart(id){
         let igyMarMukodjBammeg = false;
-        
+
         this.cartItems.forEach((element) => {
             if(element.id === id){
                 igyMarMukodjBammeg = true;
@@ -83,10 +94,13 @@ class ShoppingCart{
     GetCount(){
         return this.cartItems.length;
     }
+    GetTotal(){
+        return this.cartItems.length;
+    }
 
     GetFoodCount(id){
         let db = 0;
-        
+
         this.cartItems.forEach((element) => {
             if(element.id === id){
                 db = element.count
@@ -101,7 +115,7 @@ class ShoppingCart{
         let resp;
         $.ajax({
             type: "POST",
-            url: 'api/shoppingCartData',
+            url: '/api/shoppingCartData',
             async: false,
             data: {
                 data: JSON.stringify(this.cartItems)

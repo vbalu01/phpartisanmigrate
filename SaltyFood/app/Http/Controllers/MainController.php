@@ -6,17 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Nette\Utils\Json;
 
 class MainController extends Controller
 {
-    public function mainPage()
+    public function mainPage(Request $request)
     {
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
 
         $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->inRandomOrder()->take(10)->get();
         $tmp_f2 =  DB::table('foods')->select(['id', 'r_id', 'f_name', 'c_id', 'description', 'price', 'img_src'])->where([['available', '=', true]])->get();
         $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
+
+
+        if(url()->current()==URL::to('/'))
+        {
+            if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+                return redirect('/User');
+            }
+        }
 
         $loggedin = false;
         $usermail = "";
@@ -88,12 +97,21 @@ class MainController extends Controller
 
         $loggedin = false;
         $userid = null;
+        $usermail = "";
+        if(url()->current()==URL::to('/shoppingCart'))
+        {
+            if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+                return redirect('/User/shoppingCart');
+            }
+        }
+
         if (Auth::user()!=null) {
             $loggedin = true;
             $userid = Auth::user()->id;
+            $usermail = Auth::user()->email;
         }
-        
-        return view('shoppingCart')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$userid]);
+
+        return view('shoppingCart')->with('data', ['loggedIn'=>$loggedin,'usermail'=> $usermail,'userid'=> $userid]);
 
 
 
@@ -120,7 +138,7 @@ class MainController extends Controller
             $loggedin = true;
             $userid = Auth::user()->id;
         }
-        
+
         return view('payment')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$userid]);
 
 

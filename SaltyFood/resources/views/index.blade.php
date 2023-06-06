@@ -38,9 +38,9 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -78,7 +78,7 @@
                 <li><a href="/shoppingCart">Kosár</a>
 
                 </li>
-               
+
 
                 </li>
 
@@ -185,7 +185,7 @@
                             <li><a href="./shoppingCart">Kosár</a>
 
                             </li>
-                            
+
 
                             </li>
 
@@ -195,9 +195,9 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"></span></a></li>
                         </ul>
-                        <div class="header__cart__price">Ár: <span>$150.00</span></div>
+                        <!--  <div class="header__cart__price">Ár: <span>$150.00</span></div> -->
                     </div>
                 </div>
             </div>
@@ -664,7 +664,11 @@
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/models.js') }}"></script>
     <script src="{{ asset('js/shoppingCart.js') }}"></script>
-
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $(".cartcount").text(shoppingCart.GetCount());
+    });
+    </script>
 
 
 </body>

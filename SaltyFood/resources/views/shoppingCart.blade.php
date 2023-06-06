@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
@@ -13,15 +13,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+
 </head>
 
 <body>
@@ -34,33 +34,38 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="{{ asset('img/logo.png') }}" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+              <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
+                <img src="{{ asset('img/language.png') }}" alt="">
                 <div>Magyar</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
+            @if ($data['loggedIn'])
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Bejelentkezés</a>
+                <a href="#"><i class="fa fa-user"></i> Fiók</a>
             </div>
+        @else
+            <div class="header__top__right__auth">
+                <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
+            </div>
+        @endif
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="/">Főoldal</a></li>
                 <li><a href="/shop">Bolt</a></li>
-              
+
                 <li><a href="/shoppingCart">Kosár</a></li>
                 <li><a href="/payment">Fizetés</a></li>
             </ul>
@@ -89,7 +94,7 @@
                     <div class="col-lg-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> salty.foods@gmail.com</li>
+                                <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
                                 <li>Ingyenes szállítás 30000 Ft felett!</li>
                             </ul>
                         </div>
@@ -103,14 +108,14 @@
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
-                                <img src="img/hu-ncf.jpg" alt="">
+                                <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                       
+
                         </div>
                     </div>
                 </div>
@@ -120,7 +125,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./"><img src="{{ asset('img/logo.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -128,19 +133,18 @@
                         <ul>
                             <li><a href="/">Főoldal</a></li>
                             <li><a href="/shop">Bolt</a></li>
-                            
+
                             <li class="active"><a href="./blog.html">Kosár</a></li>
-                      
+
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
                         </ul>
-                        <div class="header__cart__price">Ár: <span>$150.00</span></div>
+                        <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
                     </div>
                 </div>
             </div>
@@ -152,11 +156,11 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-   
+
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -190,7 +194,7 @@
                                 </tr>
                             </thead>
                             <tbody id="foodsTabble">
-                                <!--<tr>
+                               <!-- <tr>
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
                                         <h5>Vegetable’s Package</h5>
@@ -356,32 +360,95 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/mixitup.min.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/models.js') }}"></script>
     <script src="{{ asset('js/shoppingCart.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            let foods = shoppingCart.GetDataFromServer();
-            let fullPrice = 0;
-            foods.forEach((food) => {
-                console.log({ food });
-                let db = shoppingCart.GetFoodCount(food.id);
-                fullPrice += db*food.price;
-                $('#foodsTabble').append('<tr id="foodrow_'+food.id+'"><td class="shoping__cart__item"><img src="'+food.img_src+'" alt=""><h5>'+food.f_name+'</h5></td>' +
-                              '<td class="shoping__cart__price">'+food.price+' Ft</td><td class="shoping__cart__quantity"><div class="quantity">' +
-                              '<div class="pro-qty"><input type="text" value="'+db+'"></div></div></td><td class="shoping__cart__total">' +
-                              ''+db*food.price+' Ft</td><td class="shoping__cart__item__close"><span class="icon_close"></span></td></tr>')
-            });
-            $('#fullPriceSpanom').text(fullPrice + ' Ft.');
-        });
+
+$(document).ready(function() {
+    $(".cartcount").text(shoppingCart.GetCount());
+
+
+    let foods = shoppingCart.GetDataFromServer();
+    let fullPrice = 0;
+    foods.forEach((food) => {
+        console.log({ food });
+        let db = shoppingCart.GetFoodCount(food.id);
+        fullPrice += db*food.price;
+        $('#foodsTabble').append(
+        '<tr id="foodrow_'+food.id+'">'+
+            '<td class="shoping__cart__item">'+
+                '<img src="'+food.img_src+'" alt="">'+
+                '<h5>'+food.f_name+'</h5>'+
+            '</td>' +
+            '<td class="shoping__cart__price">'+
+                food.price+' Ft'+
+            '</td>'+
+            '<td class="shoping__cart__quantity">'+
+                '<div class="quantity">' +
+                    '<div class="pro-qty">'+
+                        '<input type="text" value="'+db+'">'+
+                    '</div>'+
+                '</div>'+
+            '</td>'+
+            '<td class="shoping__cart__total">' +
+                ''+db*food.price+' Ft'+
+            '</td>'+
+            '<td class="shoping__cart__item__close">'+
+                '<span class="icon_close"></span>'+
+            '</td>'+
+        '</tr>')
+    });
+    $('#fullPriceSpanom').text(fullPrice + ' Ft.');
+
+    var proQty = $('.pro-qty');
+    proQty.prepend('<span class="dec qtybtn">-</span>');
+    proQty.append('<span class="inc qtybtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+        let foodItemID=getNumbers($button.parent().parent().parent().parent().attr('id'));
+        console.log( foodItemID);
+        shoppingCart.Update(foodItemID[0],newVal);
+
+        var origprice = getNumbers($button.parent().parent().parent().siblings('td.shoping__cart__price').text());
+        console.log(origprice[0]);
+        var totalpriceObj=$button.parent().parent().parent().siblings('td.shoping__cart__total');
+        var lastprice= getNumbers(totalpriceObj.text());
+        totalpriceObj.text(origprice[0]*newVal+" Ft");
+        fullPrice+=(origprice[0]*newVal-lastprice);
+        $('#fullPriceSpanom').text(fullPrice + ' Ft.');
+    });
+
+    $(".icon_close").click(function(){
+        let DeleteID=getNumbers($(this).parent().parent().attr('id'))[0];
+        shoppingCart.Remove(DeleteID);
+        location.reload();
+    });
+});
+
     </script>
 </body>
+
+</html>
+ody>
 
 </html>

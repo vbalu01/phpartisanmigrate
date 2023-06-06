@@ -84,7 +84,8 @@ p {
 }
 
 img {
-	max-width: 20vw;
+	max-width: 10vw;
+    border-radius: 10%;
 }
 
 input:focus,
@@ -1796,7 +1797,7 @@ ol {
 }
 
 .pro-qty .qtybtn {
-	width: 35px;
+	width: 35px !important;
 	font-size: 16px;
 	color: #6f6f6f;
 	cursor: pointer;
@@ -3484,4 +3485,12 @@ ol {
     font-size: 0.8vw !important;
     transform: rotate(5deg);
     box-shadow:-7px 8px 4px 0px #081e12a5;
+}
+.addCartpopUp{
+    position: fixed;
+    width: 15em;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
 }
