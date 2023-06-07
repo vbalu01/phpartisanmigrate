@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\categories;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class dbController extends Controller
 {
@@ -92,5 +94,36 @@ class dbController extends Controller
         }
         
         return json_encode($returnData);
+    }
+
+    public function completeOrder(Request $request)
+    {
+        $foods = json_decode($request->foods);
+        $addressId = $request->addressId;
+        $paymentMethod = $request->paymentMethod;
+
+        if(count($foods) < 1 || $addressId == null || $paymentMethod == null){
+            return ["Status" => "Hiba", "Reason" => "BadData"];
+        }
+
+        try {
+            $order = DB::transaction(function() use ($foods, $addressId, $paymentMethod){
+                $full_price = 0;
+                foreach($foods as $food){
+                    $full_price += $food->count * DB::table('foods')->select('price')->where([['id', '=', $food->id]])->first()->price;
+                }
+
+                $order = DB::table('orders')->insertGetId(['a_id' => $addressId, 'o_date' => date('Y-m-d H:i:s'), 'o_status' => 0, 'payment_method' => $paymentMethod, 'full_price' => $full_price]);
+                
+                foreach($foods as $food){
+                    DB::table('order_foods')->insert(['f_id' => $food->id, 'o_id' => $order, 'count' => $food->count]);
+                }
+
+                return $order;
+            });
+            return ["Status" => "Ok", "OrderId" => $order];
+        } catch(Exception $e){
+            return ["Status" => "Hiba", "Reason" => $e];
+        }
     }
 }

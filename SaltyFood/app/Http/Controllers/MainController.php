@@ -110,7 +110,6 @@ class MainController extends Controller
             $userid = Auth::user()->id;
             $usermail = Auth::user()->email;
         }
-
         return view('shoppingCart')->with('data', ['loggedIn'=>$loggedin,'usermail'=> $usermail,'userid'=> $userid]);
 
 
@@ -134,12 +133,15 @@ class MainController extends Controller
 
         $loggedin = false;
         $userid = null;
+        
         if (Auth::user()!=null) {
             $loggedin = true;
             $userid = Auth::user()->id;
         }
 
-        return view('payment')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$userid]);
+        $addresses = DB::table('addresses')->select(['id', 'a_name'])->where([['u_id', '=', $userid]])->get();
+        
+        return view('payment')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$userid, 'addresses'=>$addresses]);
 
 
 

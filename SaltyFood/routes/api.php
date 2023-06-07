@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function () {
+    Route::POST('/User/completeOrder',[App\Http\Controllers\MainController::class,'completeOrder'])->name("User_completeOrder");
 });
 
 Route::post('/shoppingCartData', [App\Http\Controllers\dbController::class,'getShoppingCartData']);
+Route::post('/completeOrder', [App\Http\Controllers\dbController::class,'completeOrder']);

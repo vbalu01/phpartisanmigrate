@@ -302,6 +302,24 @@
             </div>
         </div>
     </section>
+
+    <div class="row col-12">
+        <label>Szállítási cím</label>
+        <select id="addressId">
+            @foreach ($data['addresses'] as $address)
+                <option value="{{ $address->id }}">{{ $address->a_name }}</option>
+            @endforeach
+        </select>
+        <label>Fizetési mód</label>
+        <select id="paymentMethod">
+            <option value="1">KP fizetés futárnál</option>
+            <option value="2">Bankkártyás fizetés futárnál</option>
+            <option value="3">SZÉP kártyás fizetés futárnál</option>
+            <option value="4">Átutalás</option>
+        </select>
+        <button id="completeOrder">Rendelés leadása</button>
+    </div>
+
     <!-- Product Section End -->
 
     <!-- Footer Section Begin -->
@@ -351,6 +369,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
@@ -374,10 +393,40 @@
     <script src="{{ asset('js/mixitup.min.js') }}"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
-
-
-
+    <script src="{{ asset('js/models.js') }}"></script>
+    <script src="{{ asset('js/shoppingCart.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            console.log(shoppingCart.cartItems);
+            $("#completeOrder").click(function(){
+                if(shoppingCart.GetCount() < 1){
+                    alert("A kosár üres!");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/api/completeOrder',
+                    async: false,
+                    data: {
+                        foods: JSON.stringify(shoppingCart.cartItems),
+                        addressId: $('#addressId').val(),
+                        paymentMethod: $('#paymentMethod').val()
+                    },
+                    dataType: 'json',
+                    success: function(response){
+                        if(response.Status == "Ok"){
+                            //Sikeres rendelés átirányítás
+                            alert('Rendelését rögzítettük a(z)' + response.OrderId + ' számon!');
+                            shoppingCart.Clear();
+                        }else{
+                            alert("Hiba történt a rendelés során!");
+                            console.log(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

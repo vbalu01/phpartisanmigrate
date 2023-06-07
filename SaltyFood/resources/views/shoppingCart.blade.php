@@ -67,7 +67,7 @@
                 <li><a href="/shop">Bolt</a></li>
 
                 <li><a href="/shoppingCart">Kosár</a></li>
-                <li><a href="/payment">Fizetés</a></li>
+                <li><a href="payment">Fizetés</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -290,7 +290,7 @@
                         <ul>
                             <li>Fizetendő <span id="fullPriceSpanom"></span></li>
                         </ul>
-                        <a href="/payment" class="primary-btn">Fizetés</a>
+                        <a href="payment" class="primary-btn">Fizetés</a>
                     </div>
                 </div>
             </div>
