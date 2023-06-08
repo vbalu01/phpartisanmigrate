@@ -46,14 +46,14 @@
             <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
+            <!--<div class="header__top__right__language">
                 <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                 <div>Magyar</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
                     <li><a href="#">English</a></li>
                 </ul>
-            </div>
+            </div>-->
             @if ($data['loggedIn'])
                 <div class="header__top__right__auth">
                     <a href="#"><i class="fa fa-user"></i> Fiók</a>
@@ -77,7 +77,10 @@
                 <li><a href="#">Rólunk</a>
 
                 </li>
-                <li><a href="/shoppingCart">Kosár</a>
+                @if ($data['allowedToOrder'])
+                    <li><a href="/shoppingCart">Kosár</a>
+                @endif
+
 
                 </li>
 
@@ -95,8 +98,10 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> salty@incidens.com</li>
-                <li>Ingyenes kiszállítás 30000 Ft felett!</li>
+                <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
+                @if (!$data['allowedToOrder'])
+                    <li class="HeaderMessage">Nem felhasználó mód! Kosár letiltva.</li>
+                @endif
             </ul>
         </div>
     </div>

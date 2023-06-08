@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string("email",255);
             $table->string("password",255);
             $table->string("u_fullname",255);
+            $table->string("role",60)->nullable();
             $table->boolean("available");
             $table->timestamps();
         });

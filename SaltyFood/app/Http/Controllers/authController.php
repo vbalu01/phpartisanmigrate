@@ -24,8 +24,13 @@ class authController extends Controller
         'password' => hasheles($password)
     ])->first();
     if ($loginEntity) {
+        if ($loginEntity->role=="admin") {
+            Auth::guard('admin')->login($loginEntity);
+        }
+        else{
+            Auth::guard('user')->login($loginEntity);
+        }
 
-        Auth::guard('user')->login($loginEntity);
     }
 
 

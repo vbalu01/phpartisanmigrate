@@ -38,9 +38,12 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                @if ($data['allowedToOrder'])
+                    <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
+                @endif
+
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -51,17 +54,36 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Bejelentkezés</a>
-            </div>
+            @if ($data['loggedIn'])
+                <div class="header__top__right__auth">
+                    <a href="#"><i class="fa fa-user"></i> Fiók</a>
+                </div>
+            @else
+                <div class="header__top__right__auth">
+                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
+                </div>
+            @endif
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="/">Főoldal</a></li>
-                <li><a href="/shop">Étterem</a></li>
-            
-                <li><a href="/shoppingCart">Kosár</a></li>
-        
+                <li class="active">
+                    <a href="
+                        @if ($data['loggedIn']) /User
+                        @else /
+                        @endif
+                    ">Főoldal</a>
+                </li>
+
+                <li><a href="#">Rólunk</a>
+
+                </li>
+                <li><a href="/shoppingCart">Kosár</a>
+
+                </li>
+
+
+                </li>
+
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -73,8 +95,8 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> salty.foods@gmail.com</li>
-                <li>Ingyenes szállítás 30000 Ft felett!</li>
+                <li><i class="fa fa-envelope"></i> salty@incidens.com</li>
+                <li>Ingyenes kiszállítás 30000 Ft felett!</li>
             </ul>
         </div>
     </div>
@@ -85,15 +107,21 @@
         <div class="header__top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header__top__left">
-                            <ul>
-                            <li><i class="fa fa-envelope"></i> salty.foods@gmail.com</li>
-                            <li>Ingyenes szállítás 30000 Ft felett!</li>
-                            </ul>
-                        </div>
+                    <div class="col-lg-6 col-md-6">
+                        @if ($data['usermail'] != '')
+                            <div class="header__top__left">
+                                <ul>
+
+                                    <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
+                                    @if (!$data['allowedToOrder'])
+                                        <li class="HeaderMessage">Nem felhasználó mód! Kosár letiltva.</li>
+                                    @endif
+
+                                </ul>
+                            </div>
+                        @endif
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -101,18 +129,33 @@
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
+                           <!-- <div class="header__top__right__language">
                                 <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">English</a></li>
-         
                                 </ul>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Bejelentkezés</a>
-                            </div>
+                            </div>-->
+
+                            @if ($data['loggedIn'])
+                                <div class="header__top__right__auth">
+                                    <div class="header__top__right__language">
+                                        <a><i class="fa fa-user"></i> Fiók</a>
+                                        <ul>
+                                            @if (!$data['allowedToOrder'])
+                                                <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
+                                            @endif
+                                            <li><a href="/logout">Profil</a></li>
+                                            <li><a href="/logout">Kijelentkés</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="header__top__right__auth">
+                                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -122,27 +165,47 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+                        <a
+                            href="
+                        @if ($data['loggedIn']) /User
+                        @else
+                            / @endif
+                        ">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="/">Főoldal</a></li>
-                            <li class="active"><a href="/shop">Étterem</a></li>
-                         
-                            <li><a href="/shoppingCart">Kosár</a></li>
-                            
+                            <li class="active">
+                                <a href="
+                                    @if ($data['loggedIn']) /User
+                                    @else /
+                                     @endif
+                                ">Főoldal</a>
+                            </li>
+                            <li><a href="#">Kategóriák</a>
+                                <ul class="header__menu__dropdown">
+                                    @foreach ($data['categories'] as $da => $e)
+                                        <li><a href="#">{{ $e->c_name }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @if ($data['allowedToOrder'])
+                                <li><a href="./shoppingCart">Kosár</a> </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            @if ($data['allowedToOrder'])
+                                <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"></span></a></li>
+                            @endif
                         </ul>
-                        <div class="header__cart__price">Ár: <span>$150.00</span></div>
+                        <!--  <div class="header__cart__price">Ár: <span>$150.00</span></div> -->
                     </div>
                 </div>
             </div>
@@ -188,7 +251,7 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                
+
                                 <input type="text" placeholder="Mit keres">
                                 <button type="submit" class="site-btn">Keresés</button>
                             </form>
@@ -346,14 +409,14 @@
 
 
                             </div>
-                            
+
                     @endforeach
 
-                    
 
 
-                                   
-                                    
+
+
+
                                 </div>
                             </div>
                         </div>

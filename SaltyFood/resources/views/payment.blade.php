@@ -58,11 +58,11 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li><a href="/">Főoldal</a></li>
-                
-            
+
+
                 <li><a href="/shoppingCart">Kosár</a></li>
                 <li class="active"><a href="/payment">Fizetés</a></li>
-        
+
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -108,7 +108,7 @@
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">English</a></li>
-         
+
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
@@ -130,15 +130,15 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="/">Főoldal</a></li>
-                            
-                         
+
+
                             <li><a href="/shoppingCart">Kosár</a></li>
                             <li class="active"><a href="/payment">Fizetés</a></li>
-                            
+
                         </ul>
                     </nav>
                 </div>
-               
+
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -178,14 +178,14 @@
                         <div class="sidebar__item">
                             <h4>Fizetés módja</h4>
                             <ul class="header__menu__dropdown">
-              
+
 
                                 </ul>
                         </div>
-                     
-                        
+
+
                         <div class="sidebar__item">
-                         
+
                             <div class="sidebar__item__size">
                                 <label for="large">
                                     Bankkártya
@@ -211,7 +211,7 @@
                                 </label>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-7">
@@ -241,7 +241,7 @@
                 <label for="state">Vármegye</label>
                 <input type="text" id="state" name="state" placeholder="NY">
               </div>
-            
+
             </div>
           </div>
 
@@ -282,10 +282,10 @@
     </div>
   </div>
                     </div>
-                    
+
                     <div class="row">
 
-                       
+
 
 
                     </div>
@@ -405,7 +405,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: '/api/completeOrder',
+                    url: '/User/completeOrder',
                     async: false,
                     data: {
                         foods: JSON.stringify(shoppingCart.cartItems),

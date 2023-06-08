@@ -35,7 +35,7 @@ class MainController extends Controller
             $usermail = Auth::user()->email;
         }
         $allowedtoOrder=true;
-        if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+        if (Auth::guard('courier')->check()||Auth::guard('admin')->check()||Auth::guard('restaurant')->check()) {
             $allowedtoOrder=false;
         }
 
@@ -64,7 +64,7 @@ class MainController extends Controller
                 $usermail = Auth::user()->email;
             }
             $allowedtoOrder=true;
-            if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+            if (Auth::guard('courier')->check()||Auth::guard('admin')->check()||Auth::guard('restaurant')->check()) {
                 $allowedtoOrder=false;
             }
             return view('index')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>$request->fname]);
@@ -138,7 +138,11 @@ class MainController extends Controller
             $loggedin = true;
             $usermail = Auth::user()->email;
         }
-        return view('shop')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
+        $allowedtoOrder=true;
+        if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+            $allowedtoOrder=false;
+        }
+        return view('shop')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
 
     }
 
