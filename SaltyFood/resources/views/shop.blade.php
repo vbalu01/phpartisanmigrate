@@ -7,7 +7,7 @@
     <meta name="keywords" content="salty, food,  html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bevásárlókocsi</title>
+    <title>Étterem</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -58,7 +58,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="/">Főoldal</a></li>
-                <li><a href="/shop">Bolt</a></li>
+                <li><a href="/shop">Étterem</a></li>
             
                 <li><a href="/shoppingCart">Kosár</a></li>
         
@@ -129,7 +129,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="/">Főoldal</a></li>
-                            <li class="active"><a href="./shop-grid.html">Bolt</a></li>
+                            <li class="active"><a href="/shop">Étterem</a></li>
                          
                             <li><a href="/shoppingCart">Kosár</a></li>
                             
@@ -161,7 +161,7 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Ajánlott éttermek</span>
+                            <span>Étlapok</span>
                         </div>
                         <ul>
                         @foreach ($data['restaurants'] as $da => $e)
@@ -218,7 +218,7 @@
                         <h2>Salty Shop</h2>
                         <div class="breadcrumb__option">
                             <a href="/">Főoldal</a>
-                            <span>Bolt</span>
+                            <span>Étterem</span>
                         </div>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Kategóriák</h4>
+                            <h4>Folyamatban lévő rendelések</h4>
                             <ul class="header__menu__dropdown">
                                 @foreach ($data['categories'] as $da => $e)
 
@@ -245,7 +245,7 @@
                                 </ul>
                         </div>
                         <div class="sidebar__item">
-                            <h4>Ár</h4>
+                            <!--<h4>Ár</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                     data-min="10" data-max="540">
@@ -259,10 +259,10 @@
                                         <input type="text" id="maxamount">
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
+                           <!-- <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
                                 <label for="white">
                                     White
@@ -298,34 +298,34 @@
                                     Green
                                     <input type="radio" id="green">
                                 </label>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="sidebar__item">
-                            <h4>Popular Size</h4>
+                            <h4>Műveletek</h4>
                             <div class="sidebar__item__size">
                                 <label for="large">
-                                    Large
+                                    Rendelés felvétele
                                     <input type="radio" id="large">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="medium">
-                                    Medium
+                                    Rendelés törlése
                                     <input type="radio" id="medium">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="small">
-                                    Small
+                                     Rendelés módosítása
                                     <input type="radio" id="small">
                                 </label>
                             </div>
-                            <div class="sidebar__item__size">
+                           <!-- <div class="sidebar__item__size">
                                 <label for="tiny">
                                     Tiny
                                     <input type="radio" id="tiny">
                                 </label>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="sidebar__item">
                             <div class="latest-product__text">
@@ -362,7 +362,7 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Akciós Termékeink</h2>
+                            <h2>Összes rendelés</h2>
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
@@ -490,7 +490,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>{{ count($data['foods']) }}</span>Termék elérhető</h6>
+                                    <h6><span>{{ count($data['foods']) }}</span>Rendelés folyamatban</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
