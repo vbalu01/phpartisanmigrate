@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Facade\FlareClient\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -33,8 +34,12 @@ class MainController extends Controller
             $loggedin = true;
             $usermail = Auth::user()->email;
         }
+        $allowedtoOrder=true;
+        if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+            $allowedtoOrder=false;
+        }
 
-        return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>'all']);
+        return view('index')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>'all']);
 
     }
 
@@ -58,7 +63,11 @@ class MainController extends Controller
                 $loggedin = true;
                 $usermail = Auth::user()->email;
             }
-            return view('index')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>$request->fname]);
+            $allowedtoOrder=true;
+            if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+                $allowedtoOrder=false;
+            }
+            return view('index')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f,'allfoods' =>$tmp_f2, 'categories' =>$tmp_g,'selected_categ'=>$request->fname]);
         }
     }
     public function shoppingPage(Request $request)
@@ -116,36 +125,7 @@ class MainController extends Controller
 
     }
 
-    public function paymentPage(Request $request)
-    {
-        /*$tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
-        $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->inRandomOrder()->take(10)->get();
-        $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->inRandomOrder()->get()->random(8);
 
-        $loggedin = false;
-        $usermail = "";
-        if (Auth::user()!=null) {
-            $loggedin = true;
-            $usermail = Auth::user()->email;
-        }
-        return view('shoppingCart')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
-        */
-
-        $loggedin = false;
-        $userid = null;
-        
-        if (Auth::user()!=null) {
-            $loggedin = true;
-            $userid = Auth::user()->id;
-        }
-
-        $addresses = DB::table('addresses')->select(['id', 'a_name'])->where([['u_id', '=', $userid]])->get();
-        
-        return view('payment')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$userid, 'addresses'=>$addresses]);
-
-
-
-    }
     public function shop_filter_vend(Request $request)
     {
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
@@ -161,4 +141,6 @@ class MainController extends Controller
         return view('shop')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
 
     }
+
+
 }

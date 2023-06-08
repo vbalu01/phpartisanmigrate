@@ -38,7 +38,10 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
+                @if ($data['allowedToOrder'])
+                    <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
+                @endif
+
             </ul>
             <!-- <div class="header__cart__price">item: <span>$150.00</span></div>-->
         </div>
@@ -70,7 +73,6 @@
                         @endif
                     ">Főoldal</a>
                 </li>
-                <li><a href="./shop-grid.html">Bolt</a></li>
 
                 <li><a href="#">Rólunk</a>
 
@@ -109,8 +111,12 @@
                         @if ($data['usermail'] != '')
                             <div class="header__top__left">
                                 <ul>
+
                                     <li><i class="fa fa-envelope"></i> {{ $data['usermail'] }}</li>
-                                    <li>Ingyenes kiszállítás 30000 Ft felett!</li>
+                                    @if (!$data['allowedToOrder'])
+                                        <li class="HeaderMessage">Nem felhasználó mód! Kosár letiltva.</li>
+                                    @endif
+
                                 </ul>
                             </div>
                         @endif
@@ -123,25 +129,33 @@
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
+                           <!-- <div class="header__top__right__language">
                                 <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
                                     <li><a href="#">English</a></li>
                                 </ul>
-                            </div>
+                            </div>-->
 
                             @if ($data['loggedIn'])
                                 <div class="header__top__right__auth">
-                                    <a href="#"><i class="fa fa-user"></i> Fiók</a>
+                                    <div class="header__top__right__language">
+                                        <a><i class="fa fa-user"></i> Fiók</a>
+                                        <ul>
+                                            @if (!$data['allowedToOrder'])
+                                                <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
+                                            @endif
+                                            <li><a href="/logout">Profil</a></li>
+                                            <li><a href="/logout">Kijelentkés</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             @else
                                 <div class="header__top__right__auth">
                                     <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
                                 </div>
                             @endif
-
                         </div>
                     </div>
                 </div>
@@ -156,46 +170,40 @@
                         @if ($data['loggedIn']) /User
                         @else
                             / @endif
-                    "><img
-                                src="{{ asset('img/logo.png') }}" alt=""></a>
+                        ">
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a
-                                    href="
-                                @if ($data['loggedIn']) /User
-                                @else
-                                / @endif
-                            ">Főoldal</a>
+                            <li class="active">
+                                <a href="
+                                    @if ($data['loggedIn']) /User
+                                    @else /
+                                     @endif
+                                ">Főoldal</a>
                             </li>
-                            <li><a href="/shop">Bolt</a></li>
-
                             <li><a href="#">Kategóriák</a>
-
                                 <ul class="header__menu__dropdown">
                                     @foreach ($data['categories'] as $da => $e)
                                         <li><a href="#">{{ $e->c_name }}</a></li>
                                     @endforeach
-
                                 </ul>
                             </li>
-                            </li>
-                            <li><a href="./shoppingCart">Kosár</a>
-
-                            </li>
-
-
-                            </li>
-
+                            @if ($data['allowedToOrder'])
+                                <li><a href="./shoppingCart">Kosár</a> </li>
+                            @endif
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"></span></a></li>
+                            @if ($data['allowedToOrder'])
+                                <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"></span></a></li>
+                            @endif
                         </ul>
                         <!--  <div class="header__cart__price">Ár: <span>$150.00</span></div> -->
                     </div>
@@ -224,16 +232,14 @@
                                     <form id="r_form_{{ $e->r_name }}"
                                         action="
                                             @if ($data['loggedIn']) {{ route('User_store_filter_vendor') }}
-                                            @else
-                                                {{ route('store_filter_vendor') }} @endif"
+                                            @else {{ route('store_filter_vendor') }}
+                                            @endif"
                                         method="POST">
                                         <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
                                         <input hidden type="text" id="rid" name="rid"
                                             value="{{ $e->id }}">
-                                        <a
-                                            onclick="document.getElementById('r_form_{{ $e->r_name }}').submit();">{{ $e->r_name }}</a>
+                                        <a onclick="document.getElementById('r_form_{{ $e->r_name }}').submit();">{{ $e->r_name }}</a>
                                     </form>
-
                                 </li>
                             @endforeach
 
@@ -256,10 +262,6 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-
-
-
-
                                 <input type="text" placeholder="Mit keres?">
                                 <button type="submit" class="site-btn">Keresés</button>
                             </form>
@@ -295,7 +297,10 @@
                                     <h5><a  class="food_name">{{ $e->f_name }}</a></h5>
                                     <ul class="featured__item__pic__hover">
                                         <li><a href="#"><i class="fa  fa-info"></i></a></li>
-                                        <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
+                                        @if ($data['allowedToOrder'])
+                                            <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
+                                        @endif
+
                                     </ul>
                                 </div>
                             </div>
@@ -397,7 +402,10 @@
                                 data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="fa  fa-info"></i></a></li>
+                                    @if ($data['allowedToOrder'])
                                     <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
+                                    @endif
+
                                 </ul>
                             </div>
                             <div class="featured__item__text">

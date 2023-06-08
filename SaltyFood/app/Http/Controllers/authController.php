@@ -23,11 +23,12 @@ class authController extends Controller
         'email' => $email,
         'password' => hasheles($password)
     ])->first();
-
     if ($loginEntity) {
 
         Auth::guard('user')->login($loginEntity);
     }
+
+
     if ($loginEntity==null) {
         $loginEntity = restaurants::where([
             'email' => $email,
@@ -47,8 +48,6 @@ class authController extends Controller
             Auth::guard('courier')->login($loginEntity);
         }
     }
-
-
     if ($loginEntity==null) {
         return redirect('/login')->with('wronglogin', true);
     }
