@@ -44,6 +44,13 @@ class dbController extends Controller
         $tmp = DB::table('foods')->select(['id', 'r_id', 'f_name', 'c_id', 'description', 'price'])->where([['available', '=', true]])->get();
         return View('tesco', ['data' => $tmp]);
     }
+
+    public function getAllOrders()
+    {
+        $tmp = DB::table('orders')->select(['id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'])->where([['available', '=', true]])->get();
+        return View('tesco', ['data' => $tmp]);
+    }
+
     public function addNewFood(Request $request){
         if($request->has('r_id') && $request->has('f_name') && ($request->has('c_id') && is_numeric($request->input('c_id'))) && $request->has('description') && ($request->has('price') && is_numeric($request->input('price')))){ //Beérkező adatok meglétének ellenőrzése
             //Ha admin, vagy adott étterem ellenőrzés, ha admin +étterem létezés ellenőrzés

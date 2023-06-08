@@ -58,7 +58,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="/">Főoldal</a></li>
-                <li><a href="/shop">Étterem</a></li>
+              
             
                 <li><a href="/shoppingCart">Kosár</a></li>
         
@@ -236,11 +236,17 @@
                         <div class="sidebar__item">
                             <h4>Folyamatban lévő rendelések</h4>
                             <ul class="header__menu__dropdown">
-                                @foreach ($data['categories'] as $da => $e)
+
+                            @if( count($data['orders'])  == 0) 
+                            <h6>Nincs</h6>
+                         @else 
+
+                                @foreach ($data['orders'] as $da => $e)
 
 
-                                <li><a href="#">{{$e -> c_name}}</a></li>
+                                <li><a href="#">{{$e -> o_date}}</a></li>
                            @endforeach
+                           @endif
 
                                 </ul>
                         </div>
@@ -329,25 +335,10 @@
                         </div>
                         <div class="sidebar__item">
                             <div class="latest-product__text">
-                                <h4>Friss Termékeink</h4>
+                               
                                 <div class="latest-product__slider owl-carousel">
 
-                                @foreach ($data['foods'] as $da => $e)
-                        <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}"" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>{{$e -> f_name}}</h6>
-                                        <span>{{$e -> price}} HUF</span>
-                                    </div>
-                                </a>
-
-
-                            </div>
-                            
-                    @endforeach
+                          
 
                     
 
@@ -364,13 +355,16 @@
                         <div class="section-title product__discount__title">
                             <h2>Összes rendelés</h2>
                         </div>
+                        @if( count($data['orders'])  == 0) 
+                            <h2 class="text-center">Nincsenek rendelések!</h2>
+                         @else 
+                        @foreach ($data['orders'] as $da => $e)
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-1.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
+                                        
+                                            <div class="product__discount__percent">Fizetendő: {{$e -> full_price}}</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -378,104 +372,22 @@
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                        
+                                            <span>Rendelés ideje: {{$e -> o_date}}</span>
+                                            <h5><a href="#">Rendelés állapota: {{$e -> o_status}}</a></h5>
+                                            <div class="product__item__price">Fizetés típusa: <span>{{$e -> payment_method}}</span></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-2.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Vegetables</span>
-                                            <h5><a href="#">Vegetables’package</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-3.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Mixed Fruitss</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-4.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-5.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="{{ asset('img/product/discount/pd-6.jpg') }}">
-                                            <div class="product__discount__percent">-20%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <span>Dried Fruit</span>
-                                            <h5><a href="#">Raisin’n’nuts</a></h5>
-                                            <div class="product__item__price">$30.00 <span>$36.00</span></div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
+                               
+                               
+                              
                             </div>
                         </div>
+                        @endforeach
+                        
+                        @endif
                     </div>
                     <div class="filter__item">
                         <div class="row">
@@ -490,7 +402,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>{{ count($data['foods']) }}</span>Rendelés folyamatban</h6>
+                                    <h6><span>{{ count($data['orders']) }}</span>Rendelés folyamatban</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -502,11 +414,13 @@
                         </div>
                     </div>
                     <div class="row">
-
+                    @if( count($data['orders'])  == 0) 
+                           
+                         @else 
                         @foreach ($data['foods'] as $da => $e)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="{{ $e->img_src != "" ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
+                                    
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -514,13 +428,15 @@
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6><a href="#">{{$e->f_name}}</a></h6>
-                                        <h5>{{$e->price}}Ft.</h5>
+                                        <h6><a href="#">Rendelés ideje: {{$e -> o_date}}</a></h6>
+                                        <h5>Rendelés állapota: {{$e -> o_status}}</h5>
+                                        Fizetés típusa: <span>{{$e -> payment_method}}
+                                        Fizetendő: {{$e -> full_price}}
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
+                        @endif
 
                     </div>
                      <!--
