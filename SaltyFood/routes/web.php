@@ -70,7 +70,10 @@ use Illuminate\Support\Facades\Session;
 
 /////////////////////////Futár///////////////////////////////////////////////////////
     Route::group(['middleware' => 'auth:courier'], function () {
-        Route::get('/Dashboard/Courier',[App\Http\Controllers\DashController::class,'courierDash']);
+        Route::get('/Dashboard/Courier',[App\Http\Controllers\CurierController::class,'courierDash']);
+        Route::post('/Dashboard/Courier/getorders',[App\Http\Controllers\CurierController::class,'getOrders']);
+        Route::post('/Dashboard/Courier/acceptOrder',[App\Http\Controllers\CurierController::class,'acceptOrder']);
+
     });
 /////////////////////////Futár///////////////////////////////////////////////////////
 

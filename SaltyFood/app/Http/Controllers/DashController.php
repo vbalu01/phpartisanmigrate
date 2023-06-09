@@ -23,11 +23,10 @@ class DashController extends Controller
         }
     }
 
-    public function courierDash()
-    {
-        # code...
-    }
-    public function restaurantDash(Request $request)
+
+
+
+    public function restaurantDash()
     {
         $tmp_h = DB::table('orders')->select(['id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'])->get();
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
@@ -69,5 +68,5 @@ class DashController extends Controller
         echo "Rendelés felvéve!.<br/>";
        // echo '<a href = "/insert">Click Here</a> to go back.';
         }
-        
+
 }
