@@ -45,7 +45,26 @@ class DashController extends Controller
     }
     public function adminDash()
     {
-        # code...
+        $loggedin = false;
+        $allowedtoOrder=false;
+        $usermail = "";
+        if (Auth::user()!=null) {
+            $loggedin = true;
+            $usermail = Auth::user()->email;
+        }
+
+        $categories = DB::table('categories')->select('id', 'c_name', 'available')->get();
+        $restaurants = DB::table('restaurants')->select('id', 'r_name', 'address', 'city_postalcode', 'available')->get();
+        $couriers = DB::table('couriers')->select('id', 'email', 'c_name', 'available')->get();
+
+        return view('adminDash')->with('data', [
+            'loggedIn' => $loggedin,
+            'usermail' => $usermail,
+            'allowedToOrder' => $allowedtoOrder=false,
+            'categories' =>$categories,
+            'restaurants' => $restaurants,
+            'couriers' => $couriers
+        ]);
     }
 
     public function insertOrderForm(){

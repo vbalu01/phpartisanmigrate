@@ -55,23 +55,34 @@ class AdminController extends Controller
         }
     }
 
-    public function addCetegory(Request $request)
+    public function addNewCategory(Request $request)
     {
-        if($request->has('c_name')){
-            DB::table('categories')->insert([
+        if($request->has('c_name')) {
+            $id = DB::table('categories')->insertGetId([
                 'c_name' => $request->input('c_name'),
                 'available' => true
             ]);
+
+            return ['success' => true, 'message' => "Sikeres rögzítés!", 'id' => $id];
+
+        } else {
+            return ['success' => false, 'message' => "Hibás adatok!"];
         }
     }
 
     public function updateCategory(Request $request)
     {
         if($request->has('c_id')){
-            DB::table('categories')->where('id', $request->input('c_id'))->update([
+            if(DB::table('categories')->where('id', $request->input('c_id'))->update([
                 'c_name' => $request->input('c_name'),
                 'available' => $request->input('available')
-            ]);
+            ]) == 1){
+                return "Sikeres mentés!";
+            }else{
+                return "Nem történt módosítás!" ;
+            }
+        }else{
+            return "Hiba történt!";
         }
     }
 }

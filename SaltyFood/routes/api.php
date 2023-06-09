@@ -22,3 +22,5 @@ Route::group(['middleware' => 'auth:user,courier,restaurant,admin'], function ()
 
 Route::post('/shoppingCartData', [App\Http\Controllers\dbController::class,'getShoppingCartData']);
 Route::post('/completeOrder', [App\Http\Controllers\dbController::class,'completeOrder']);
+Route::post('/updateCategory', [App\Http\Controllers\AdminController::class,'updateCategory']);
+Route::post('/addNewCategory', [App\Http\Controllers\AdminController::class,'addNewCategory']);
