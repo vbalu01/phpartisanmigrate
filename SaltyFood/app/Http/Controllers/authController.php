@@ -85,39 +85,27 @@ public function userRegister(Request $request)
     $loginEntity = Users::where([
         'email' => $email
     ])->first();
-
-
-
     if ($loginEntity==null) {
         $loginEntity = couriers::where([
             'email' => $email
         ])->first();
 
     }
-
-
     if($loginEntity == null) {
         $f = null;
         $f = new Users();
+    try {
+        $f->email =$email;
+        $f->password = hasheles($password);
+        $f->u_fullname=$fullname;
 
-
-
-
-        try {
-            $f->email =$email;
-            $f->password = hasheles($password);
-            $f->u_fullname=$fullname;
-
-            $f->save();
-            $a='Sikeres mentés. Azonosító: ';
-            return redirect('/login')->with('message', $a);
-        } catch (\Throwable $th) {
-            dd("kaki");
-            return redirect('/login')->with('alert', 'Sikertelen mentés');
-        }
-
-
-
+        $f->save();
+        $a='Sikeres mentés. Azonosító: ';
+        return redirect('/login')->with('message', $a);
+    } catch (\Throwable $th) {
+        dd("kaki");
+        return redirect('/login')->with('alert', 'Sikertelen mentés');
+    }
 }
 
 }
