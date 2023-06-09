@@ -73,6 +73,8 @@ use Illuminate\Support\Facades\Session;
         Route::get('/Dashboard/Courier',[App\Http\Controllers\CurierController::class,'courierDash']);
         Route::post('/Dashboard/Courier/getorders',[App\Http\Controllers\CurierController::class,'getOrders']);
         Route::post('/Dashboard/Courier/acceptOrder',[App\Http\Controllers\CurierController::class,'acceptOrder']);
+        Route::get('/Dashboard/Courier/OngoingDelivery',[App\Http\Controllers\CurierController::class,'ongoingDelivery']);
+        Route::post('/Dashboard/Courier/updateDelivery',[App\Http\Controllers\CurierController::class,'UpdateDelivery']);
 
     });
 /////////////////////////Futár///////////////////////////////////////////////////////

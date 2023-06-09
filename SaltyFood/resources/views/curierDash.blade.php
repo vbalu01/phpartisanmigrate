@@ -10,50 +10,42 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="tinder">
-        <div class="tinder--status">
-          <i class="fa fa-remove"></i>
-          <i class="fa fa-heart"></i>
-        </div>
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    @if ($data['windowType']==1)
+        <div class="tinder">
+            <div class="tinder--status">
+            <i class="fa fa-remove"></i>
+            <i class="fa fa-check"></i>
+            </div>
 
-        <div id="cards" class="tinder--cards">
-          <div class="tinder--card">
-            <img src="https://placeimg.com/600/300/people">
-            <h3>Demo card 1</h3>
-            <p>This is a demo for Tinder like swipe cards</p>
-          </div>
-          <div class="tinder--card">
-            <img src="https://placeimg.com/600/300/animals">
-            <h3>Demo card 2</h3>
-            <p>This is a demo for Tinder like swipe cards</p>
-          </div>
-          <div class="tinder--card">
-            <img src="https://placeimg.com/600/300/nature">
-            <h3>Demo card 3</h3>
-            <p>This is a demo for Tinder like swipe cards</p>
-          </div>
-          <div class="tinder--card">
-            <img src="https://placeimg.com/600/300/tech">
-            <h3>Demo card 4</h3>
-            <p>This is a demo for Tinder like swipe cards</p>
-          </div>
-          <div class="tinder--card">
-            <img src="https://placeimg.com/600/300/arch">
-            <h3>Demo card 5</h3>
-            <p>This is a demo for Tinder like swipe cards</p>
-          </div>
-        </div>
+            <div id="cards" class="tinder--cards">
+                <div class="tinder--card">
+                    <img src="https://placeimg.com/600/300/tech">
+                    <h3>debug card 1</h3>
+                </div>
+                <div class="tinder--card">
+                    <img src="https://placeimg.com/600/300/tech">
+                    <h3>debug card 2</h3>
+                </div>
+                <div class="tinder--card">
+                    <img src="https://placeimg.com/600/300/tech">
+                    <h3>debug card 3</h3>
+                </div>
+                <div class="tinder--card">
+                    <img src="https://placeimg.com/600/300/arch">
+                    <h3>debug card 4</h3>
+                </div>
+            </div>
 
-        <div class="tinder--buttons">
-          <button id="nope"><i class="fa fa-remove"></i></button>
-          <button id="accept"><i class="fa fa-check"></i></i></button>
+            <div class="tinder--buttons">
+            <button id="nope"><i class="fa fa-remove"></i></button>
+            <button id="accept"><i class="fa fa-check"></i></i></button>
+            </div>
         </div>
-      </div>
-      <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-      <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
-      <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-      <script src="{{ asset('js/swiper.js') }}"></script>
-      <script>
+        <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+        <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+        <script src="{{ asset('js/swiper.js') }}"></script>
+        <script>
         $(document).ready(function() {
             $.ajaxSetup({
             headers: {
@@ -82,5 +74,36 @@
             });
         });
         </script>
+    @else
+
+        <div class="tinder ongoing">
+            <div class="tinder--status">
+            <i class="fa fa-remove"></i>
+            <i class="fa fa-check"></i>
+            </div>
+            <H1>Folyamatban lévő kiszállítások</H1>
+            <div id="cards" class="tinder--cards">
+                <div  id="card" class='tinder--card' value=" {{ $data['order']->orderID }} ">
+                    <h3>Felvételi üzlet: </h3>
+                    <h3>{{ $data['order']->r_name }}</h3>
+                    <h4>Felvételi cím: {{ $data['order']->restAddr }}</h3>
+                    <h3>Kiszállítás: </h3>
+                    <h3>{{ $data['order']->u_fullname }}</h3>
+                    <h4>Szállítási cím: {{ $data['order']->userAddr }}</h4>
+                    <p>Termék: {{ $data['order']->f_name }}</p>
+                </div>
+            </div>
+
+            <div class="tinder--buttons">
+            <button id="nope"><i class="fa fa-remove"></i></button>
+            <button id="accept"><i class="fa fa-check"></i></i></button>
+            </div>
+        </div>
+        <script src="{{ asset('js/swiper_2.js') }}"></script>
+    @endif
+
+
+
+
 </body>
 </html>
