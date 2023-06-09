@@ -89,6 +89,18 @@ class MainController extends Controller
 
     }
 
+    public function restaurantPage(Request $request) {
+        $tmp_h = DB::table('orders')->select(['id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'])->get();
+
+        $loggedin = false;
+        $usermail = "";
+        if (Auth::user()!=null) {
+            $loggedin = true;
+            $usermail = Auth::user()->email;
+        }
+        return view('restaurant')->with('data', ['orders' =>$tmp_h]);
+    }
+
     public function shoppingCartPage(Request $request)
     {
         /*$tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();

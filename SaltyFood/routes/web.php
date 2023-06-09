@@ -77,6 +77,7 @@ use Illuminate\Support\Facades\Session;
 /////////////////////////Éterem///////////////////////////////////////////////////////
     Route::group(['middleware' => 'auth:restaurant'], function () {
         Route::get('/Dashboard/Restaurant',[App\Http\Controllers\DashController::class,'restaurantDash']);
+        Route::get('/Dashboard/Restaurant/insertOrder',[App\Http\Controllers\DashController::class,'insertOrderForm']);
     });
 /////////////////////////Éterem///////////////////////////////////////////////////////
 
