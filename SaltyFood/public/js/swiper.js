@@ -30,7 +30,7 @@ allCards.forEach(function (el) {
     if (event.deltaX === 0) return;
     if (event.center.x === 0 && event.center.y === 0) return;
 
-    tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
+    tinderContainer.classList.toggle('tinder_accept', event.deltaX > 0);
     tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
 
     var xMulti = event.deltaX * 0.03;
@@ -42,7 +42,7 @@ allCards.forEach(function (el) {
 
   hammertime.on('panend', function (event) {
     el.classList.remove('moving');
-    tinderContainer.classList.remove('tinder_love');
+    tinderContainer.classList.remove('tinder_accept');
     tinderContainer.classList.remove('tinder_nope');
 
     var moveOutWidth = document.body.clientWidth;
