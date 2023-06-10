@@ -14,7 +14,7 @@
 <div class="container">
   <h2 class="text-center">Étterem | módosítás</h2>
   <br>
-  <form action = "/createMenu" method = "post" class="form-group" style="width:70%; margin-left:15%;" action="/action_page.php">
+  <form action = "/updateMenu/<?php echo $id; ?>" method = "post" class="form-group" style="width:70%; margin-left:15%;" action="/action_page.php">
 
   <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>"><input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <!--$c_id = $request->input('c_id');
@@ -31,18 +31,20 @@ password varcahr [NOT NULL]
 address varcahr [NOT NULL]
 available boolean [NOT NULL]-->
 
-    <label class="form-group">Étterem:</label>
-    <input type="text"  class="form-control" placeholder="Rákolló Étterem" name="r_name">
-        <label>Étterem neve:</label>
-        <input type="text" class="form-control" placeholder="Rákolló" name="r_name">
+        
+   
+    <label class="form-group">Étterem neve:</label>
+    @foreach ($restaurants as $da => $e)
+    <input type="text"  class="form-control" placeholder="{{$e -> r_name}}" name="r_name" required>
+
     
         <label>Étterem email:</label>
-         <input type="text" class="form-control" placeholder="" name="email">
+         <input type="text" class="form-control" placeholder="{{$e -> email}}" name="email"required >
 
-         <label>Étterem jelszó:</label>
-         <input type="password" class="form-control" placeholder="****" name="password">
+         <label>Étterem új jelszava:</label>
+         <input type="password" class="form-control" placeholder="******" name="password" required>
          <label> Étterem címe:</label>
-         <input type="text" class="form-control" placeholder="Vépi utca 25" name="address">
+         <input type="text" class="form-control" placeholder="{{$e -> address}}" name="address" required>
             <label> Étel kategória:</label>
 
 <label>Elérhetőség</label>
@@ -51,11 +53,11 @@ available boolean [NOT NULL]-->
 
     
     <option value="0">Hamis</option>
-    <option value="1">Igaz</option>
+    <option selected="true" value="1">Igaz</option>
 
             
         </select>
-
+  @endforeach
 
     <button type="submit"  value = "" class="btn btn-primary">Étterem módosítása</button>
   </form>

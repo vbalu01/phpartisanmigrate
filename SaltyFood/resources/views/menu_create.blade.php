@@ -35,13 +35,13 @@
             
         </select>
         <label>Étel:</label>
-        <input type="text" class="form-control" placeholder="Kakaós Prézli" name="f_name">
+        <input type="text" class="form-control" placeholder="Kakaós Prézli" name="f_name" required>
     
         <label>Étel leírása:</label>
-         <input type="text" class="form-control" placeholder="" name="description">
+         <input type="text" class="form-control" placeholder="Boostolja a dimat IQ-dat " name="description" required>
 
          <label>Étel ára:</label>
-         <input type="number" class="form-control" placeholder="" name="price">
+         <input type="number" class="form-control" placeholder="750" name="price" required>
          <label> Étel képe:</label>
          <input type="text" class="form-control" placeholder="https://onlyfans.com/sikin.jpg" name="img_src">
             <label> Étel kategória:</label>
@@ -61,7 +61,7 @@
 
     
     <option value="0">Hamis</option>
-    <option value="1">Igaz</option>
+    <option selected="true" value="1">Igaz</option>
 
             
         </select>

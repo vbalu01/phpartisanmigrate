@@ -247,7 +247,7 @@
                                     
                                 </li>
                                 <li> <a href="/Dashboard/Restaurant/updateMenu/{{$e->id}}">Módosítás</li></a> <li>
-                                      <a href = "Dashboard/Restaurant/deleteMenu/{{$e->id}}">Törlés<hr></a></li>
+                                     
                             @endforeach
 </ul>
                     </div>
@@ -301,23 +301,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
-                        <div class="sidebar__item">
-                        @if( count($data['orders'])  == 0) 
-                            <h6>Nincs folyamatban lévő rendelés</h6>
-                            
-                         @else 
-                            <h4>Folyamatban lévő rendelések</h4>
-
-                            <ul class="header__menu__dropdown">
-                                @foreach ($data['orders'] as $da => $e)
-
-
-                                <li>{{$e-> id}} : {{$e -> o_date}} - <a href="/updateOrder/{{$e -> id}}">Módosítás</a> - <a href="/deleteOrder/{{$e -> id}}">Törlés</a> </li>
-                           @endforeach
-
-                                </ul>
-                                @endif
-                        </div>
+                       
                         <div class="sidebar__item">
                             <!--<h4>Ár</h4>
                             <div class="price-range-wrap">
@@ -462,13 +446,7 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <span>Rendezés</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div>
+                                
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
@@ -493,13 +471,12 @@
                                 <div class="product__item">
                                     
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <a href="/Dashboard/Restaurant/updateOrder/{{$e->id}}">Módosítás</a>
+       
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                    <h6><a href="#">Rendelés ideje: {{$e -> o_date}}</a></h6>
+                                    <h6>Rendelés ideje: {{$e -> o_date}}</h6>
                                         <h5>Rendelés állapota: {{$e -> o_status}}</h5>
                                         Fizetés típusa: <span>{{$e -> payment_method}}
                                         Fizetendő: {{$e -> full_price}}

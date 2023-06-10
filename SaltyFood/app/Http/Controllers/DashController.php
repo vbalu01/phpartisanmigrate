@@ -83,30 +83,87 @@ class DashController extends Controller
              $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
             return view('menu_create')->with('data', ['addresses' => $addresses, 'restaurants' => $tmp_r, 'foods' => $tmp_f,'restaurants' => $tmp_r, 'categories' => $tmp_g]);
             }
-        public function insert(Request $request){
+        public function insertFood(Request $request){
 
-            //'id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'
+            //id int [PK, not null]
+//r_id int [NOT NULL, ref: > app.restaurants.id]
+//f_name varchar [not null]
+//c_id int [NOT NULL, ref: > app.categories.id]
+//description varchar
+//price int [NOT NULL]
+//available boolean [NOT NULL]
+        $r_id = $request->input('r_id');
+        $f_name = $request->input('f_name');
         $c_id = $request->input('c_id');
-        $a_id = $request->input('a_id');
-        $o_date = $request->input('o_date');
-        $o_status = $request->input('o_status');
-        $payment_method = $request->input('payment_method');
-        $full_price = $request->input('full_price');
-        $data=array('c_id'=>$c_id,"a_id"=>$a_id,"o_date"=>$o_date,"o_status"=>$o_status, "payment_method"=>$payment_method, "full_price"=>$full_price);
-        DB::table('orders')->insert($data);
-        echo "Rendelés felvéve!.<br/>";
+        $description  = $request->input('description');
+        $price = $request->input('price');
+        $available= $request->input('available');
+        $data=array('r_id'=>$r_id,"f_name"=>$f_name,"c_id"=>$c_id,"description"=>$description,"price"=>$price,"available"=>$available);
+        DB::table('foods')->insert($data);
+        echo "Az étel sikeresen felvéve!";
+        header( "refresh:3;url=/" );
        // echo '<a href = "/insert">Click Here</a> to go back.';
         }
+
+        
 
         public function editRestaurantForm($id) {
             
             // $addresses = DB::table('addresses')->select(['id', 'a_name'])->get();
-             $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->get();
-             //$tmp_name = DB::table('restaurants')->select(['r_name'])->where([['id', '=', $id]])->get();
+             //$tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->get();
+             $tmp_name = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['id', '=', $id]])->get();
+             
             // $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->get();
             // $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
      
-                 return view('restaurant_update')->with('data', ['restaurants' => $tmp_r]);
+                 return view('restaurant_update', ['restaurants' =>$tmp_name, 'id' => $id]);
               }
+
+              public function editOrderForm($id) {
+            
+                 $addresses = DB::table('addresses')->select(['id', 'a_name'])->get();
+                 $couriers = DB::table('couriers')->select(['id', 'c_name'])->get();
+                 //$tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->get();
+                 $tmp_name = DB::table('orders')->select(['id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'])->where([['id', '=', $id]])->get();
+                 
+                // $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->get();
+                // $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
+         
+                     return view('order_update', ['orders' =>$tmp_name,'addresses' =>$addresses, 'couriers' => $couriers, 'id' => $id]);
+                  }
+
+
+              public function editRestaurant(Request $request,$id) {
+                $r_name = $request->input('r_name');
+                $email = $request->input('email');
+                $password = $request->input('password');
+                $address = $request->input('address');
+                $available = $request->input('available');
+                DB::update('update restaurants set r_name = ?, email = ?, password = ?, address = ?, available = ?  where id = ?',[$r_name,$email,$password,$address,$available,$id]);
+                echo "Étterem sikeresen frissítve!.<br/>";
+                header( "refresh:3;url=/" );
+             }
+
+             public function editOrder(Request $request,$id) {
+            
+
+                //id int [PK, increment]
+                    //c_id INT [ref: > app.couriers.id]
+                   // a_id INT [ref: > app.addresses.id]
+                 //   o_date datetime [NOT NULL]
+                 //   o_status int [NOT NULL]
+                 //   payment_method int [NOT NULL]
+                 //   full_price int [NOT NULL]
+
+                $c_id = $request->input('c_id');
+                $a_id = $request->input('a_id');
+                $o_date = $request->input('o_date');
+                $o_status = $request->input('o_status');
+                $payment_method = $request->input('payment_method');
+                $full_price = $request->input('full_price');
+                DB::update('update orders set c_id= ?, a_id = ?, o_date = ?, o_status = ?, payment_method = ?, full_price = ?  where id = ?',[$c_id,$a_id,$o_date,$o_status,$payment_method,$full_price,$id]);
+                echo "Rendelés sikeresen frissítve!.<br/>";
+                header( "refresh:3;url=/" );
+                  }
 
 }

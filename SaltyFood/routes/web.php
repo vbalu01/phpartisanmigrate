@@ -84,7 +84,10 @@ use Illuminate\Support\Facades\Session;
         Route::get('/Dashboard/Restaurant',[App\Http\Controllers\DashController::class,'restaurantDash']);
         Route::get('/Dashboard/Restaurant/insertMenu',[App\Http\Controllers\DashController::class,'insertMenuForm']);
         Route::get('/Dashboard/Restaurant/updateMenu/{id}',[App\Http\Controllers\DashController::class,'editRestaurantForm']);
-        Route::post('createMenu', [App\Http\Controllers\DashController::class,'insert']);
+        Route::get('/Dashboard/Restaurant/updateOrder/{id}',[App\Http\Controllers\DashController::class,'editOrderForm']);
+        Route::post('updateMenu/{id}',[App\Http\Controllers\DashController::class,'editRestaurant']);
+        Route::post('updateOrder/{id}',[App\Http\Controllers\DashController::class,'editOrder']);
+        Route::post('createMenu', [App\Http\Controllers\DashController::class,'insertFood']);
         Route::get('/Dashboard/Restaurant/insertOrder',[App\Http\Controllers\DashController::class,'insertOrderForm']);
     });
 /////////////////////////Éterem///////////////////////////////////////////////////////
