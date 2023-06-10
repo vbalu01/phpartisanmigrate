@@ -26,7 +26,7 @@ class DashController extends Controller
 
 
 
-    public function restaurantDash()
+    public function restaurantDash(Request $request)
     {
         $tmp_h = DB::table('orders')->select(['id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'])->get();
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
@@ -73,6 +73,16 @@ class DashController extends Controller
 
         return view('order_create')->with('data', ['addresses' => $addresses]);
         }
+
+        
+        public function insertMenuForm(){
+
+            $addresses = DB::table('addresses')->select(['id', 'a_name'])->get();
+            $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->get();
+             $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->get();
+             $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
+            return view('menu_create')->with('data', ['addresses' => $addresses, 'restaurants' => $tmp_r, 'foods' => $tmp_f,'restaurants' => $tmp_r, 'categories' => $tmp_g]);
+            }
         public function insert(Request $request){
 
             //'id', 'c_id', 'a_id', 'o_date', 'o_status', 'payment_method', 'full_price'
@@ -87,5 +97,16 @@ class DashController extends Controller
         echo "Rendelés felvéve!.<br/>";
        // echo '<a href = "/insert">Click Here</a> to go back.';
         }
+
+        public function editRestaurantForm($id) {
+            
+            // $addresses = DB::table('addresses')->select(['id', 'a_name'])->get();
+             $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->get();
+             //$tmp_name = DB::table('restaurants')->select(['r_name'])->where([['id', '=', $id]])->get();
+            // $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->get();
+            // $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->get();
+     
+                 return view('restaurant_update')->with('data', ['restaurants' => $tmp_r]);
+              }
 
 }

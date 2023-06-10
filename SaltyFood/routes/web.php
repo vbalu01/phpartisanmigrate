@@ -82,6 +82,9 @@ use Illuminate\Support\Facades\Session;
 /////////////////////////Éterem///////////////////////////////////////////////////////
     Route::group(['middleware' => 'auth:restaurant'], function () {
         Route::get('/Dashboard/Restaurant',[App\Http\Controllers\DashController::class,'restaurantDash']);
+        Route::get('/Dashboard/Restaurant/insertMenu',[App\Http\Controllers\DashController::class,'insertMenuForm']);
+        Route::get('/Dashboard/Restaurant/updateMenu/{id}',[App\Http\Controllers\DashController::class,'editRestaurantForm']);
+        Route::post('createMenu', [App\Http\Controllers\DashController::class,'insert']);
         Route::get('/Dashboard/Restaurant/insertOrder',[App\Http\Controllers\DashController::class,'insertOrderForm']);
     });
 /////////////////////////Éterem///////////////////////////////////////////////////////

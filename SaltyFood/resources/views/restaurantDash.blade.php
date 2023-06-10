@@ -227,7 +227,7 @@
                             <span>Étlapok</span>
                             
                         </div>
-                        <button><a href="">Étlap felvétele</a></button>
+                        <button><a href="/Dashboard/Restaurant/insertMenu">Étel felvétele</a></button>
                         <ul>
                         @foreach ($data['restaurants'] as $da => $e)
                                 <li>
@@ -241,11 +241,13 @@
                                         method="POST">
                                         <input name="_token" type="hidden" value="{!! csrf_token() !!}" />
                                         <input hidden type="text" id="rid" name="rid" value="{{$e->id}}">
-                                        <a onclick="document.getElementById('r_form_{{$e->r_name}}').submit();"><b>{{$e->r_name}}</b> <a href="Dashboard/Restaurant/updateMenu/{{$e->id}}">Módosítás</a> <a href = "Dashboard/Restaurant/updateMenu/{{$e->id}}">Törlés<hr></a></a>
+                                        <a onclick="document.getElementById('r_form_{{$e->r_name}}').submit();"><b>{{$e->r_name}}</b></a>
                                         
                                     </form>
-                                   
+                                    
                                 </li>
+                                <li> <a href="/Dashboard/Restaurant/updateMenu/{{$e->id}}">Módosítás</li></a> <li>
+                                      <a href = "Dashboard/Restaurant/deleteMenu/{{$e->id}}">Törlés<hr></a></li>
                             @endforeach
 </ul>
                     </div>
@@ -373,8 +375,8 @@
                             </div>-->
                         </div>
                         <div class="sidebar__item">
-                            <h4>Műveletek</h4>
-                            <div class="sidebar__item__size">
+                            
+                            <!--<div class="sidebar__item__size">
                                 <label for="large">
                                 <a href="/Dashboard/Restaurant/insertOrder">Rendelés felvétele</a>
                                     <input type="radio" id="large">
@@ -390,7 +392,7 @@
                                 <label for="small">
                                      Rendelés módosítása
                                     <input type="radio" id="small">
-                                </label>
+                                </label>-->
                             </div>
                            <!-- <div class="sidebar__item__size">
                                 <label for="tiny">
