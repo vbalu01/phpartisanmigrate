@@ -216,7 +216,7 @@ class DashController extends Controller
             $array = array(
                 "title" => "Új rendelés elérhető",
                 "body" => "Elfogadáshoz kattints ide",
-                "url" => "http://127.0.0.1/Dashboard",
+                "url" => route('futarDash'),
             );
            $result= $webPush->sendOneNotification(
                 Subscription::create(json_decode($value->data,true)),
