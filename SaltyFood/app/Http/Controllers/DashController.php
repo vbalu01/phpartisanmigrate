@@ -144,9 +144,7 @@ class DashController extends Controller
                 header( "refresh:3;url=/" );
              }
 
-             public function editOrder(Request $request,$id) {
-            
-
+            public function editOrder(Request $request,$id) {
                 //id int [PK, increment]
                     //c_id INT [ref: > app.couriers.id]
                    // a_id INT [ref: > app.addresses.id]
@@ -164,6 +162,34 @@ class DashController extends Controller
                 DB::update('update orders set c_id= ?, a_id = ?, o_date = ?, o_status = ?, payment_method = ?, full_price = ?  where id = ?',[$c_id,$a_id,$o_date,$o_status,$payment_method,$full_price,$id]);
                 echo "Rendelés sikeresen frissítve!.<br/>";
                 header( "refresh:3;url=/" );
-                  }
+            }
+
+
+            public function adminUpdateMenuPage(Request $request, $id){
+                $loggedin = false;
+                $allowedtoOrder=false;
+                $usermail = "";
+                if (Auth::user()!=null) {
+                    $loggedin = true;
+                    $usermail = Auth::user()->email;
+                }
+                if(DB::table('restaurants')->select('id')->where('id', $id)->value('id') != $id){ //Azaz nincs ilyen étterem
+                    abort(404);
+                }
+
+                $restaurantName = DB::table('restaurants')->select('r_name')->where('id', $id)->value('r_name');
+                $foods = DB::table('foods')->select('id', 'f_name', 'c_id', 'description', 'price', 'available', 'img_src')->where('r_id', $id)->get();
+                $categories = DB::table('categories')->select('id', 'c_name')->where('available', true)->get();
+
+                return view('adminMenuPage')->with('data', [
+                    'loggedIn' => $loggedin,
+                    'usermail' => $usermail,
+                    'allowedToOrder' => $allowedtoOrder,
+                    'r_name' => $restaurantName,
+                    'r_id' => $id,
+                    'foods' => $foods,
+                    'categories' => $categories
+                ]);
+            }
 
 }

@@ -7,7 +7,7 @@
     <meta name="keywords" content="salty, food,  html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>Admin - Étlap módosítás</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -185,13 +185,6 @@
                                      @endif
                                 ">Főoldal</a>
                             </li>
-                            <li><a href="#">Kategóriák</a>
-                                <ul class="header__menu__dropdown">
-                                    @foreach ($data['categories'] as $da => $e)
-                                        <li><a href="#">{{ $e->c_name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
                             @if ($data['allowedToOrder'])
                                 <li><a href="./shoppingCart">Kosár</a> </li>
                             @endif
@@ -262,7 +255,7 @@
                     <div class="breadcrumb__text">
                         <h2>Salty Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="/">Főoldal</a>
+                            <a href="/">Étlapkezelés</a>
                             <span>Admin</span>
                         </div>
                     </div>
@@ -275,171 +268,84 @@
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-5">
-                    <div class="sidebar">
-                        <div class="sidebar__item">
-                        </div>
-                        <div class="sidebar__item">
-                            <!--<h4>Ár</h4>
-                            <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="10" data-max="540">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div>-->
-                        </div>
-                        <div class="sidebar__item sidebar__item__color--option">
-                           <!-- <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
-                            </div>-->
-                        </div>
-                        <div class="sidebar__item">
-                            <h4>Műveletek</h4>
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                <a href="/Dashboard/Restaurant/insertOrder">Rendelés felvétele</a>
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    Rendelés törlése
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                     Rendelés módosítása
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
-                           <!-- <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    Tiny
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>-->
-                        </div>
-                        <div class="sidebar__item">
-                            <div class="latest-product__text">
-                                <div class="latest-product__slider owl-carousel">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
+                <div class="col-lg-12 col-md-12">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <div>
-                                <h2>Kategóriák</h2>
-                                <table id="categoriesTable" class="table table-striped restaurantsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Kategória</th>
-                                            <th>Státusz</th>
-                                            <th>Módosítás</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="categoriesTableBody">
-                                        @foreach ($data['categories'] as $category)
+                            <div class="row col-12">
+                                <h2>Menü kezelés - {{ $data['r_name'] }}</h2>
+                                <div class="row col-12">
+                                    <h3>Étlap módosítás</h3>
+                                    <table id="foodsTable" class="table table-striped restaurantsTable">
+                                        <thead>
                                             <tr>
-                                                <td><input type="text" id="categoryTb_{{ $category->id }}" value="{{ $category->c_name }}" /></td>
-                                                <td>
-                                                    <select id="categorySb_{{ $category->id }}">
-                                                        <option value="0" @if (!$category->available)
-                                                            selected
-                                                        @endif>Nem elérhető</option>
-                                                        <option value="1" @if ($category->available)
-                                                            selected
-                                                        @endif>
-                                                            Elérhető</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-success" onclick="updateCategory({{ $category->id }});">
-                                                        Mentés
-                                                    </button>
-                                                </td>
+                                                <th>Étel</th>
+                                                <th>Kategória</th>
+                                                <th>Leírás</th>
+                                                <th>Ár</th>
+                                                <th>Státusz</th>
+                                                <th>Kép</th>
+                                                <th>Művelet</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <div class="row" style="padding-bottom:5%;">
-                                    <h3 class="col-12" style="padding-bottom:2%;">Kategória felvétele</h3>
-                                    <div class="col-1"></div>
-                                    <input type="text" class="form-control col-6" id="newCategoryTb" />
-                                    <div class="col-1"></div>
-                                    <button class="btn btn-success col-3" onclick="addNewCategory()">Kategória hozzáadása</button>
-                                    <div class="col-1"></div>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data['foods'] as $food)
+                                                <tr>
+                                                    <td><input type="text" id="food_name_{{ $food->id }}" value="{{ $food->f_name }}"></td>
+                                                    <td>
+                                                        <select id="food_category_{{ $food->id }}">
+                                                            @foreach ($data['categories'] as $category)
+                                                                <option value="{{ $category->id }}" @if ($food->c_id == $category->id)
+                                                                    selected
+                                                                @endif>
+                                                                    {{ $category->c_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        <select>
+                                                    </td>
+                                                    <td><input type="text" id="food_description_{{ $food->id }}" value="{{ $food->description }}"></td>
+                                                    <td><input type="number" id="food_price_{{ $food->id }}" value="{{ $food->price }}"></td>
+                                                    <td>
+                                                        <select id="food_available_{{ $food->id }}">
+                                                            <option value="0" @if (!$food->available)
+                                                                selected
+                                                            @endif>Nem elérhető</option>
+                                                            <option value="1"  @if ($food->available)
+                                                                selected
+                                                            @endif>Elérhető</option>
+                                                        </select>
+                                                    </td>
+                                                    <td><input type="text" id="food_img_{{ $food->id }}" value="{{ $food->img_src }}"></td>
+                                                    <td><button class="btn btn-success" onclick="updateFood({{ $food->id }});">Módosít</button></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
-                            <div class="row col-12">
-                                <h2>Éttermek</h2>
-                                <br>
-                                <table id="restaurantsTable" class="table table-striped restaurantsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Étterem</th>
-                                            <th>Cím</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data['restaurants'] as $restaurant)
-                                            <tr>
-                                                <td><a href="#">{{ $restaurant->r_name }}</a></td>
-                                                <td>{{ $restaurant->city_postalcode }} {{ $restaurant->address }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row col-12">
-                                <h2>Futárok</h2>
-
+                                <hr>
+                                <div class="row col-12" style="padding-top:5%;">
+                                    <div class="row offset-3 col-9" style="padding-bottom:2%;">
+                                        <h3>Étel rögzítés</h3>
+                                    </div>
+                                    <div class="offset-3"></div>
+                                    <div class="row col-6">
+                                        <input type="text" class="form-control" id="addFood_name" placeholder="Étel neve"><br>
+                                        <select id="addFood_category" class="form-control"><br>
+                                            @foreach ($data['categories'] as $category)
+                                                <option value="{{ $category->id }}">
+                                                    {{ $category->c_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <input type="text" class="form-control" id="addFood_description" placeholder="Leírás"><br>
+                                        <input type="number" class="form-control" id="addFood_price" placeholder="Ár"><br>
+                                        <select id="addFood_available" class="form-control"><br>
+                                            <option value="0">Nem elérhető</option>
+                                            <option value="1" selected>Elérhető</option>
+                                        </select>
+                                        <input type="text" class="form-control" id="addFood_imgSrc" placeholder="Kép URL"><br>
+                                        <button class="btn btn-lg btn-success" onclick="addFood({{ $data['r_id'] }});">Étel felvétele</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -558,61 +464,53 @@
 
     <script>
         $(document).ready(function() {
-            $("#restaurantsTable").fancyTable({
-                inputPlaceholder: 'Szűrés...',
-                pagination: true,
-                perPage: 5
-             });
-             
-             $("#categoriesTable").fancyTable({
-                pagination: true,
-                perPage: 5,
-                searchable: false
-             });
-         });
+            $("#foodsTable").fancyTable({
+                inputPlaceholder: 'Szűrés...'
+            });		
+        });
 
-         function updateCategory(categoryId){
+        function updateFood(id){
             $.ajax({
                 type: "POST",
-                url: '/api/updateCategory',
+                url: '/api/updateFood',
                 async: false,
                 data: {
-                    'c_id' : categoryId,
-                    'c_name' : $('#categoryTb_'+categoryId).val(),
-                    'available' : $('#categorySb_'+categoryId).val()
+                    'food_id' : id,
+                    'f_name' : $('#food_name_' + id).val(),
+                    'c_id' : $('#food_category_'+ id).val(),
+                    'description' : $('#food_description_'+ id).val(),
+                    'price' : $('#food_price_'+ id).val(),
+                    'available' : $('#food_available_'+ id).val(),
+                    'img_src' : $('#food_img_'+ id).val()
                 },
-                //dataType: 'json',
                 success: function(response){
                     alert(response);
                 }
             });
-         }
+        }
 
-         function addNewCategory(){
-            if($('#newCategoryTb').val() != ""){
-                $.ajax({
+        function addFood(r_id){
+            if($('#addFood_name').val() == "" || $('#addFood_description').val() == "" || $('#addFood_price').val() < 1){
+                alert("Hibás beviteli mezők!");
+            }
+            $.ajax({
                 type: "POST",
-                url: '/api/addNewCategory',
+                url: '/api/addFood',
                 async: false,
                 data: {
-                    'c_name' : $('#newCategoryTb').val()
+                    'f_name' : ,
+                    'r_id' : ,
+                    'c_id' : $('#food_category_'+ id).val(),
+                    'description' : $('#food_description_'+ id).val(),
+                    'price' : $('#food_price_'+ id).val(),
+                    'available' : $('#food_available_'+ id).val(),
+                    'img_src' : $('#food_img_'+ id).val()
                 },
                 success: function(response){
-                    if(response.success){
-                        $('#categoriesTableBody').append('<tr><td><input type="text" id="categoryTb_'+response.id+'" value="'+$('#newCategoryTb').val()+'" /></td>' +
-                                                        '<td><select id="categorySb_'+response.id+'"><option value="0" selected>Nem elérhető</option>' +
-                                                        '<option value="1" selected>Elérhető</option></select></td>' +
-                                                        '<td><button class="btn btn-success" onclick="updateCategory('+response.id+');">Mentés' +
-                                                        '</button></td></tr>');
-                        $('#newCategoryTb').val("");
-                    }
-                    alert(response.message);
+                    alert(response);
                 }
             });
-            }else{
-                alert("A kategória mező nem lehet üres!");
-            }
-         }
+        }
     </script>
 
 

@@ -95,6 +95,7 @@ use Illuminate\Support\Facades\Session;
 /////////////////////////Admin///////////////////////////////////////////////////////
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/Dashboard/Admin',[App\Http\Controllers\DashController::class,'adminDash']);
+        Route::get('/Dashboard/Admin/menuUpdate/{restaurantId}',[App\Http\Controllers\DashController::class,'adminUpdateMenuPage']);
     });
 /////////////////////////Admin///////////////////////////////////////////////////////
 

@@ -10,22 +10,28 @@ class AdminController extends Controller
     public function updateFood(Request $request)
     {
         if($request->has('food_id') && $request->has('f_name') && $request->has('c_id') && $request->has('description') && $request->has('price') && $request->has('img_src') && $request->has('available')){
-            DB::table('foods')->where('id', $request->input('food_id'))->update([
+            if(DB::table('foods')->where('id', $request->input('food_id'))->update([
                 'f_name' => $request->input('f_name'),
                 'c_id' => $request->input('c_id'),
                 'description' => $request->input('description'),
                 'price' => $request->input('price'),
                 'available' => $request->input('available'),
                 'img_src' => $request->input('img_src')
-            ]);
+            ]) == 1){
+                return "Sikeres módosítás!";
+            }else{
+                return "Nem történt módosítás!";
+            }
+        }else{
+            return "Hiányos adatok!";
         }
     }
 
     public function addFood(Request $request)
     {
-        if($request->has('food_id') && $request->has('r_id') && $request->has('f_name') && $request->has('c_id') && $request->has('description') && $request->has('price') && $request->has('img_src') && $request->has('available'))
+        if($request->has('f_name') && $request->has('r_id') && $request->has('c_id') && $request->has('description') && $request->has('price') && $request->has('img_src') && $request->has('available'))
         {
-            DB::table('foods')->insert([
+            $id = DB::table('foods')->insertGetId([
                 'f_name' => $request->input('f_name'),
                 'r_id' => $request->input('r_id'),
                 'c_id' => $request->input('c_id'),
@@ -34,6 +40,14 @@ class AdminController extends Controller
                 'available' => $request->input('available'),
                 'img_src' => $request->input('img_src')
             ]);
+
+            if($id != null && $id != 0){
+
+            }else{
+                
+            }
+        }else{
+            return ['Success' => false, "Message" => "Sikertelen: Hibás beviteli adatok!"];
         }
     }
 
