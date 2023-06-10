@@ -183,7 +183,7 @@
     /*--------------------------
         Select
     ----------------------------*/
-    $("select").niceSelect();
+    //$("select").niceSelect(); //ANYÁD PICSÁJA NICE SELECT, EZ EGY SZAR
 
     /*------------------
 		Single Product

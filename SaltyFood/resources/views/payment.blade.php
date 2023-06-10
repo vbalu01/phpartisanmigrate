@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}" type="text/css">
+    <!--<link rel="stylesheet" href="{{ asset('css/nice-select.css') }}" type="text/css">-->
     <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
@@ -170,156 +170,32 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
-    <section class="product spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-5">
-                    <div class="sidebar">
-                        <div class="sidebar__item">
-                            <h4>Fizetés módja</h4>
-                            <ul class="header__menu__dropdown">
-
-
-                                </ul>
-                        </div>
-
-
-                        <div class="sidebar__item">
-
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                    Bankkártya
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    Készpénz
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                    Átutalás
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    Onlyfans
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-7">
-                    <div class="product__discount">
-                        <div class="section-title product__discount__title">
-                            <h2>Fizetési adatok</h2>
-                        </div>
-                        <div class="row">
-  <div class="col-75">
-    <div class="container">
-      <form action="/action_page.php">
-
-        <div class="row">
-          <div class="col-50">
-            <h3>Számlázásí cím</h3>
-            <label for="fname"><i class="fa fa-user"></i> Teljes név</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com">
-            <label for="adr"><i class="fa fa-address-card-o"></i> Cím</label>
-            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-            <label for="city"><i class="fa fa-institution"></i> Város</label>
-            <input type="text" id="city" name="city" placeholder="New York">
-
-            <div class="row">
-              <div class="col-50">
-                <label for="state">Vármegye</label>
-                <input type="text" id="state" name="state" placeholder="NY">
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-50">
-            <h3>Fizetés</h3>
-            <label for="fname">Elfogadott kártyák</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
-              <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
-            </div>
-            <label for="cname">Kártyatulajdonos neve</label>
-            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
-            <label for="ccnum">Kártyaszám</label>
-            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-            <label for="expmonth">Lejárati hó</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September">
-
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Lejárati év</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2018">
-              </div>
-              <div class="col-50">
-                <label for="cvv">CVV kód</label>
-                <input type="text" id="cvv" name="cvv" placeholder="352">
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr"> Számlázási cím megegyezik a szállításéval
-        </label>
-        <input type="submit" value="Fizetés" class="btn">
-      </form>
-    </div>
-  </div>
-                    </div>
-
-                    <div class="row">
-
-
-
-
-                    </div>
-                     <!--
-                        <div class="product__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-                    -->
-
+    <div class="row offset-5 col-5" style="text-align: center;">
+        <form>
+            <div class="form-goroup" style="padding:2%;">
+                <p>Szállítási cím </p>
+                <div class="row">
+                    <select id="addressId" class="form-control" style="width: 100%;">
+                        @foreach ($data['addresses'] as $address)
+                            <option value="{{ $address->id }}">{{ $address->a_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <div class="row col-12">
-        <label>Szállítási cím</label>
-        <select id="addressId">
-            @foreach ($data['addresses'] as $address)
-                <option value="{{ $address->id }}">{{ $address->a_name }}</option>
-            @endforeach
-        </select>
-        <label>Fizetési mód</label>
-        <select id="paymentMethod">
-            <option value="1">KP fizetés futárnál</option>
-            <option value="2">Bankkártyás fizetés futárnál</option>
-            <option value="3">SZÉP kártyás fizetés futárnál</option>
-            <option value="4">Átutalás</option>
-        </select>
-        <button id="completeOrder">Rendelés leadása</button>
+            <div class="form-goroup" style="padding:2%;">
+                <p>Fizetési mód </p>
+                <div class="row">
+                    <select id="paymentMethod" class="form-control" style="width: 100%;">
+                        <option value="1">KP fizetés futárnál</option>
+                        <option value="2">Bankkártyás fizetés futárnál</option>
+                        <option value="3">SZÉP kártyás fizetés futárnál</option>
+                        <option value="4">Átutalás</option>
+                    </select>
+                </div>
+            </div>
+            <button id="completeOrder" class="btn btn-success" style="width: 100%;">Rendelés leadása</button>
+        </form>
     </div>
-
     <!-- Product Section End -->
 
     <!-- Footer Section Begin -->
@@ -387,7 +263,7 @@
     <!-- Js Plugins -->
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <!--<script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>-->
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('js/mixitup.min.js') }}"></script>
@@ -405,7 +281,7 @@
                 }
                 $.ajax({
                     type: "POST",
-                    url: '/User/completeOrder',
+                    url: '/api/completeOrder',
                     async: false,
                     data: {
                         foods: JSON.stringify(shoppingCart.cartItems),
