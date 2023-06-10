@@ -42,29 +42,26 @@ class AdminController extends Controller
             ]);
 
             if($id != null && $id != 0){
-
+                return ['Success' => true, 'Message' => "Sikeres módosítás", 'id' => $id];
             }else{
-                
+                return ['Success' =>false, 'Message' => "Ismeretlen hiba történt!"];
             }
         }else{
             return ['Success' => false, "Message" => "Sikertelen: Hibás beviteli adatok!"];
         }
     }
 
-    public function updateRegisterStatus(Request $request)
+    public function updateCourierStatus(Request $request) //Csak futárra
     {
-        if($request->has('type') && $request->has('available') && $request->has('id')){
-            if($request->input('type') == 0) //Étterem
-            {
-                DB::table('restaurants')->where('id', $request->input('id'))->update([
-                    'available' => $request->input('available')
-                ]);
-            }
-            else if($request->input('type') == 1)//Futár
-            {
-                DB::table('couriers')->where('id', $request->input('id'))->update([
-                    'available' => $request->input('available')
-                ]);
+        if($request->has('id')){
+            $actual = DB::table('couriers')->select('available')->where('id', $request->input('id'))->first()->available;
+            
+            if(DB::table('couriers')->where('id', $request->input('id'))->update([
+                'available' => !$actual
+            ]) == 1){
+                return ['Success' => true, 'Message' => "Sikeres módosítás"];
+            }else{
+                return ['Success' => false, 'Message' => "Nem történt módosítás!"];
             }
         }
     }

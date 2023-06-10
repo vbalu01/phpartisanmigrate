@@ -26,3 +26,4 @@ Route::post('/updateCategory', [App\Http\Controllers\AdminController::class,'upd
 Route::post('/updateFood', [App\Http\Controllers\AdminController::class,'updateFood']);
 Route::post('/addFood', [App\Http\Controllers\AdminController::class,'addFood']);
 Route::post('/addNewCategory', [App\Http\Controllers\AdminController::class,'addNewCategory']);
+Route::post('/updateCourierStatus', [App\Http\Controllers\AdminController::class,'updateCourierStatus']);

@@ -287,7 +287,7 @@
                                                 <th>Művelet</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="foodsTableBody">
                                             @foreach ($data['foods'] as $food)
                                                 <tr>
                                                     <td><input type="text" id="food_name_{{ $food->id }}" value="{{ $food->f_name }}"></td>
@@ -498,16 +498,20 @@
                 url: '/api/addFood',
                 async: false,
                 data: {
-                    'f_name' : ,
-                    'r_id' : ,
-                    'c_id' : $('#food_category_'+ id).val(),
-                    'description' : $('#food_description_'+ id).val(),
-                    'price' : $('#food_price_'+ id).val(),
-                    'available' : $('#food_available_'+ id).val(),
-                    'img_src' : $('#food_img_'+ id).val()
+                    'f_name' : $('#addFood_name').val(),
+                    'r_id' : r_id,
+                    'c_id' : $('#addFood_category').val(),
+                    'description' : $('#addFood_description').val(),
+                    'price' : $('#addFood_price').val(),
+                    'available' : $('#addFood_available').val(),
+                    'img_src' : $('#addFood_imgSrc').val()
                 },
                 success: function(response){
-                    alert(response);
+                    if(response.Success){
+                        location.reload();
+                    }else{
+                        alert("Ismeretlen hiba történt!");
+                    }
                 }
             });
         }

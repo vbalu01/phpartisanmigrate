@@ -281,60 +281,8 @@
                         <div class="sidebar__item">
                         </div>
                         <div class="sidebar__item">
-                            <!--<h4>Ár</h4>
-                            <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="10" data-max="540">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div>-->
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
-                           <!-- <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
-                            </div>-->
                         </div>
                         <div class="sidebar__item">
                             <h4>Műveletek</h4>
@@ -356,12 +304,6 @@
                                     <input type="radio" id="small">
                                 </label>
                             </div>
-                           <!-- <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    Tiny
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>-->
                         </div>
                         <div class="sidebar__item">
                             <div class="latest-product__text">
@@ -430,7 +372,7 @@
                                     <tbody>
                                         @foreach ($data['restaurants'] as $restaurant)
                                             <tr>
-                                                <td><a href="#">{{ $restaurant->r_name }}</a></td>
+                                                <td><a href="Admin/menuUpdate/{{ $restaurant->id }}" target=”_blank”>{{ $restaurant->r_name }}</a></td>
                                                 <td>{{ $restaurant->city_postalcode }} {{ $restaurant->address }}</td>
                                             </tr>
                                         @endforeach
@@ -439,7 +381,31 @@
                             </div>
                             <div class="row col-12">
                                 <h2>Futárok</h2>
-
+                                <table id="couriersTable" class="table table-striped restaurantsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Futár</th>
+                                            <th>Email</th>
+                                            <th>Státusz</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data['couriers'] as $courier)
+                                            <tr>
+                                                <td>{{ $courier->c_name }}</td>
+                                                <td>{{ $courier->email }}</td>
+                                                <td>
+                                                    <button onclick="updateStatus({{ $courier->id }});" class="btn 
+                                                        @if ($courier->available)btn-success @endif
+                                                        @if (!$courier->available)btn-danger @endif
+                                                        " id="courierStatusBtn_{{ $courier->id }}">
+                                                        @if($courier->available)Elérhető (Módosít)@endif
+                                                        @if(!$courier->available)Nem elérhető (Módosít)@endif
+                                            </button></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -569,6 +535,12 @@
                 perPage: 5,
                 searchable: false
              });
+
+             $("#couriersTable").fancyTable({
+                pagination: true,
+                perPage: 5,
+                searchable: true
+             });
          });
 
          function updateCategory(categoryId){
@@ -612,6 +584,31 @@
             }else{
                 alert("A kategória mező nem lehet üres!");
             }
+         }
+
+         function updateStatus(id){
+            $.ajax({
+                type: "POST",
+                url: '/api/updateCourierStatus',
+                async: false,
+                data: {
+                    'id' : id
+                },
+                success: function(response){
+                    if(response.Success){
+                        $('#courierStatusBtn_'+ id).toggleClass('btn-success btn-danger');
+                        if(!$('#courierStatusBtn_'+ id).text().includes("Nem")) {
+                            
+                            $('#courierStatusBtn_'+ id).text("Nem elérhető (Módosít)");
+                            
+                        }
+                        else{
+                            console.log($('#courierStatusBtn_'+ id).text());
+                            $('#courierStatusBtn_'+ id).text("Elérhető (Módosít)");
+                        }
+                    }
+                }
+            });
          }
     </script>
 
