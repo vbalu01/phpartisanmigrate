@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
+    <button onclick="requestPermission()">Sub to new orders</button>
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
     @if ($data['windowType']==1)
         <div class="tinder">
@@ -101,7 +103,6 @@
         </div>
         <script src="{{ asset('js/swiper_2.js') }}"></script>
     @endif
-
 
 
 

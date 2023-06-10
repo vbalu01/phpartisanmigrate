@@ -88,7 +88,7 @@ class dbController extends Controller
 
         }
     }
-    
+
     public function getShoppingCartData(Request $request){
         $receivedData = json_decode($request->data);
 
@@ -98,7 +98,7 @@ class dbController extends Controller
             $tmp = DB::table('foods')->select(['id', 'f_name', 'description', 'price', 'img_src'])->where([['id', '=', $data->id]])->first();
             array_push($returnData, $tmp);
         }
-        
+
         return json_encode($returnData);
     }
 
@@ -120,13 +120,14 @@ class dbController extends Controller
                 }
 
                 $order = DB::table('orders')->insertGetId(['a_id' => $addressId, 'o_date' => date('Y-m-d H:i:s'), 'o_status' => 0, 'payment_method' => $paymentMethod, 'full_price' => $full_price]);
-                
+
                 foreach($foods as $food){
                     DB::table('order_foods')->insert(['f_id' => $food->id, 'o_id' => $order, 'count' => $food->count]);
                 }
 
                 return $order;
             });
+            app('App\Http\Controllers\DashController')->notifyEveryone();
             return ["Status" => "Ok", "OrderId" => $order];
         } catch(Exception $e){
             return ["Status" => "Hiba", "Reason" => $e];

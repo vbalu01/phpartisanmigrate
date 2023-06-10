@@ -43,6 +43,7 @@ use Illuminate\Support\Facades\Session;
     Route::get('/payment',[App\Http\Controllers\PaymentController::class,'paymentPage'])->name('payment');
     Route::POST('/filter',[App\Http\Controllers\MainController::class,'main_filter_cat'])->name("main_filter_cat");
     Route::POST('/shop/filter',[App\Http\Controllers\MainController::class,'shop_filter_vend'])->name("store_filter_vendor");
+    Route::get('/notify',[App\Http\Controllers\DashController::class,'notifyEveryone']);
 //////////////////////Mindenki/////////////////////////////////////////////////////
 
 ///////////////////////Bejelentkezett/////////////////////////////////////////////////////
@@ -57,7 +58,7 @@ use Illuminate\Support\Facades\Session;
 
 /////////////////////////Futár éterem admin///////////////////////////////////////////////////////
     Route::group(['middleware' => 'auth:courier,restaurant,admin'], function () {
-        Route::get('/Dashboard',[App\Http\Controllers\DashController::class,'dashPage']);
+        Route::get('/Dashboard',[App\Http\Controllers\DashController::class,'Dashpage']);
     });
 /////////////////////////Futár éterem admin///////////////////////////////////////////////////////
 

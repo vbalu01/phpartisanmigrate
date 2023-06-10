@@ -148,3 +148,28 @@ function acceptJob(orderID) {
 }
 
 
+navigator.serviceWorker.register('../serviceWorker.js', { scope: './' });
+function requestPermission() {
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+            console.log("granted");
+            // get service worker
+            console.log( navigator.serviceWorker.ready);
+            navigator.serviceWorker.ready.then((sw) =>{
+                console.log("sunscribing");
+                // subscribe
+                sw.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey:"BDXLfLM4pXv3_ChmODNsXTk7E6YR8ZSE9lXe3XMWmjiI_9GQTrsoJeZq0Htzv3pnoBrq0g5iGOsvMaXJBXG5Gjk"
+                }).then((subscription) => {
+                    console.log("sunscribed");
+                    // subscription successful
+                    fetch("/api/push-subscribe", {
+                        method: "post",
+                        body:JSON.stringify(subscription)
+                    }).then( alert("ok") );
+                });
+            });
+        }
+    });
+}

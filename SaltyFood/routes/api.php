@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PushSubscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,8 @@ Route::post('/updateFood', [App\Http\Controllers\AdminController::class,'updateF
 Route::post('/addFood', [App\Http\Controllers\AdminController::class,'addFood']);
 Route::post('/addNewCategory', [App\Http\Controllers\AdminController::class,'addNewCategory']);
 Route::post('/updateCourierStatus', [App\Http\Controllers\AdminController::class,'updateCourierStatus']);
+Route::post('push-subscribe', function(Request $request)  {
+    PushSubscription::create([
+        'data'=>$request->getContent()
+    ]);
+});

@@ -1,5 +1,10 @@
 <?php
 
+//eznekemkell
+// "publicKey" => "BDXLfLM4pXv3_ChmODNsXTk7E6YR8ZSE9lXe3XMWmjiI_9GQTrsoJeZq0Htzv3pnoBrq0g5iGOsvMaXJBXG5Gjk"
+//"privateKey" => "eqB3I-E5sD3j-y0LQy2HznrLBjYceKE15SG5fhZfKxA"
+
+
 namespace App\Http\Controllers;
 
 use App\Models\couriers;
