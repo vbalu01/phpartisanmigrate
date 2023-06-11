@@ -12,9 +12,9 @@
 <body>
 
 <div class="container">
-  <h2 class="text-center">Étel | felvétel</h2>
+  <h2 class="text-center mt-3">Étel | felvétel</h2>
   <br>
-  <form action = "/createMenu" method = "post" class="form-group" style="width:70%; margin-left:15%;" action="/action_page.php">
+  <form action = "/createMenu" method = "post" class="form-group p-3" style="width:70%; margin-left:15%;" action="/action_page.php">
 
   <input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>"><input type = "hidden" name = "_token" value = "<?php echo csrf_token(); ?>">
 <!--$c_id = $request->input('c_id');
@@ -28,7 +28,7 @@
     <select class="form-control" name="r_id">
     @foreach ($data['restaurants'] as $da)
     
-    <option value="{{$da -> id}}">{{$da -> id}} - {{$da -> r_name}}</option>
+    <option hidden="hidden" value="{{$da -> id}}">{{$da -> id}} - {{$da -> r_name}}</option>
             
 
     @endforeach
@@ -67,7 +67,7 @@
         </select>
 
 
-    <button type="submit"  value = "" class="btn btn-primary">Étel felvétele</button>
+    <button type="submit"  value = "" class="btn btn-primary mt-3">Étel felvétele</button>
   </form>
 </div>
 

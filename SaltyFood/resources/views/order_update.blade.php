@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-  <h2 class="text-center">Rendelés állapota | módosítás</h2>
+  <h2 class="text-center mt-3">Rendelés állapota | módosítás</h2>
   <br>
   <form action = "/updateOrder/<?php echo $id; ?>" method = "post" class="form-group" style="width:70%; margin-left:15%;" action="/action_page.php">
 
@@ -61,8 +61,17 @@ full_price int [NOT NULL]-->
          <label> Rendelés állapota::</label>
 
 
+         <select class="form-control" name="o_status">
 
-         <input type="number" class="form-control" placeholder="{{$o ->o_status}}" name="o_status" min='1' required>
+
+
+            <option value="0">Rendelés leadva, megerősítésre vár</option>
+            <option value="1">Visszaigazolva, elkészítés alatt</option>
+            <option value="2">Átadva futárnak</option>
+            <option value="3">Kiszállítva</option>
+
+</select>
+     
 
             <label> Fizetési mód:</label>
             <select class="form-control" name="payment_method">

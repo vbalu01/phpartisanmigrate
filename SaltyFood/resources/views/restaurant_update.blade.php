@@ -12,7 +12,7 @@
 <body>
 
 <div class="container">
-  <h2 class="text-center">Étterem | módosítás</h2>
+  <h2 class="text-center mt-3">Étterem | módosítás</h2>
   <br>
   <form action = "/updateMenu/<?php echo $id; ?>" method = "post" class="form-group" style="width:70%; margin-left:15%;" action="/action_page.php">
 
@@ -59,7 +59,7 @@ available boolean [NOT NULL]-->
         </select>
   @endforeach
 
-    <button type="submit"  value = "" class="btn btn-primary">Étterem módosítása</button>
+    <button type="submit"  value = "" class="btn btn-primary mt-3">Étterem módosítása</button>
   </form>
 </div>
 

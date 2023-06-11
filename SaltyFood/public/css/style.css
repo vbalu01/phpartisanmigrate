@@ -36,6 +36,11 @@ body {
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
+.border-3 {
+    border-width:3px !important;
 }
 
 h1,
