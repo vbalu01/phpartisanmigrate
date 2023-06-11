@@ -35,3 +35,8 @@ Route::post('push-subscribe', function(Request $request)  {
 });
 Route::post('/updateAddress', [App\Http\Controllers\dbController::class,'updateAddress']);
 Route::post('/addNewAddress', [App\Http\Controllers\dbController::class,'addNewAddress']);
+Route::post('push-unsubscribe', function(Request $request)  {
+    PushSubscription::where(
+        'data',$request->getContent()
+    )->delete();
+});

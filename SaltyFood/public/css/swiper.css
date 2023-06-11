@@ -64,11 +64,11 @@ h1{
 
   .tinder--cards {
     flex-grow: 1;
-    padding-top: 40px;
+    padding-top: 80px;
     text-align: center;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    /*align-items: flex-end;*/
     z-index: 1;
   }
 
@@ -76,7 +76,7 @@ h1{
     display: inline-block;
     width: 90vw;
     max-width: 400px;
-    height: 70vh;
+    height: 60vh;
     background: #FFFFFF;
     padding-bottom: 40px;
     border-radius: 8px;
@@ -116,7 +116,7 @@ h1{
   }
 
   .tinder--buttons {
-    flex: 0 0 100px;
+    flex: 0 0 200px;
     text-align: center;
     padding-top: 20px;
   }

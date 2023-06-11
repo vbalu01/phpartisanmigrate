@@ -37,7 +37,6 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 @if ($data['allowedToOrder'])
                     <li><a href="/shoppingCart"><i class="fa fa-shopping-bag"></i> <span class="cartcount"> </span></a></li>
                 @endif
@@ -56,7 +55,10 @@
             </div>-->
             @if ($data['loggedIn'])
                 <div class="header__top__right__auth">
-                    <a href="#"><i class="fa fa-user"></i> Fiók</a>
+                    <a href="#"><i class="fa fa-user"></i> Profil</a>
+                    @if (!$data['allowedToOrder'])
+                        <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
+                    @endif
                 </div>
             @else
                 <div class="header__top__right__auth">

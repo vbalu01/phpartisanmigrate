@@ -6,13 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Futár</title>
-    <link rel="stylesheet" href="{{ asset('css/swiper.css') }}" type="text/css">
+    <link rel="stylesheet" href="../css/swiper.css" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <button onclick="location.href='/'">Főoldal</button>
+    <button onclick="requestPermission()">Új rendelésekre feliratkozás</button>
+    <button onclick="unsub()">Új rendelésekről leiratkozás</button>
 
-    <button onclick="requestPermission()">Sub to new orders</button>
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script id="alma" src="../serviceWorker.js"></script>
     @if ($data['windowType']==1)
         <div class="tinder">
             <div class="tinder--status">
@@ -46,7 +49,7 @@
         </div>
         <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
         <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-        <script src="{{ asset('js/swiper.js') }}"></script>
+        <script src="../js/swiper.js"></script>
         <script>
         $(document).ready(function() {
             $.ajaxSetup({
