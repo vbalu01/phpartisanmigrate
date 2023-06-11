@@ -60,8 +60,9 @@
                 </div>
             @else
                 <div class="header__top__right__auth">
-                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
+                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés/Regisztráció</a>
                 </div>
+          
             @endif
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -128,12 +129,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
+                   
                            <!-- <div class="header__top__right__language">
                                 <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
@@ -158,7 +154,7 @@
                                 </div>
                             @else
                                 <div class="header__top__right__auth">
-                                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés</a>
+                                    <a href="/login"><i class="fa fa-user"></i> Bejelentkezés/Regisztráció</a>
                                 </div>
                             @endif
                         </div>
@@ -429,24 +425,7 @@
     </section>
     <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
-    <div class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('img/banner/banner-1.jpg') }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('img/banner/banner-2.jpg') }}" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner End -->
+
 
  <!-- Latest Product Section Begin
     <section class="latest-product spad">

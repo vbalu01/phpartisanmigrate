@@ -123,7 +123,7 @@
                             Belépés
                         </button>
                     </div>
-                    <ul class="login-more p-t-190">
+                    <ul class="login-more p-t-20">
                         <li class="m-b-8">
                             <span class="txt1">
                                 Elfelejtett

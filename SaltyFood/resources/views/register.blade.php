@@ -100,7 +100,7 @@
 <body>
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100 p-t-85 p-b-20">
+            <div class="wrap-login100 p-t-20 p-b-20">
                 <form action="/registercheck" method="post" class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title p-b-70">
@@ -109,12 +109,12 @@
                     <span class="login100-form-avatar">
                         <img src="img/login_images/avatar-01.png" alt="AVATAR">
                     </span>
-                    <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Írd be az email címedet!">
+                    <div class="wrap-input100 validate-input m-t-50 m-b-35" data-validate="Írd be az email címedet!">
                         <input class="input100" type="text" name="email"  id="email">
                         <span class="focus-input100" data-placeholder="Email"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate="Írd be a teljes nevedet!">
+                    <div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate="Írd be a teljes nevedet!">
                         <input class="input100" type="text" name="fname"  id="fname">
                         <span class="focus-input100" data-placeholder="Teljes név"></span>
                     </div>
@@ -127,7 +127,7 @@
                             Regisztrálás
                         </button>
                     </div>
-                    <ul class="login-more p-t-190">
+                    <ul class="login-more p-t-20">
                         <li>
                             <span class="txt1">
                                 Van fiókja?
