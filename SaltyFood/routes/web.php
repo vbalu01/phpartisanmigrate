@@ -124,9 +124,9 @@ use Illuminate\Support\Facades\Session;
 /////////////////////////Admin///////////////////////////////////////////////////////
 
 /////////////////////////User///////////////////////////////////////////////////////
-Route::group(['middleware' => 'auth:user'], function () {
-    Route::get('/Dashboard/User',[App\Http\Controllers\DashController::class,'userDash']);
-});
+    Route::group(['middleware' => 'auth:user'], function () {
+        Route::get('/Dashboard/User',[App\Http\Controllers\DashController::class,'userDash']);
+    });
 /////////////////////////Admin///////////////////////////////////////////////////////
 
 

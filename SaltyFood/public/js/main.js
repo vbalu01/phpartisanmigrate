@@ -216,3 +216,28 @@ function getNumbers(inputString){
 
     return results;
 }
+$( document ).ready(function() {
+    $('.InfoModal').on('click', function() {
+        var $button = $(this);
+        var ptag= $button.parent().siblings()[1].textContent;
+        var img=$button.parent().parent().attr("data-setbg");
+        console.log( ptag);
+        console.log( img);
+
+        $('.modaldesc').text( ptag);
+        $('.modalimg').attr( "src",img);
+
+        $('.modal-wrapper').addClass( "open" );
+       $('.modal-wrapper').removeClass( "close" );
+
+      $('.page-wrapper').toggleClass('blur-it');
+       return false;
+    });
+    $('.btn-close').on('click', function() {
+
+        $('.modal-wrapper').addClass( "close" );
+       $('.modal-wrapper').removeClass( "open" );
+      $('.page-wrapper').toggleClass('unblur-it');
+       return false;
+    });
+  });
