@@ -73,6 +73,7 @@ use Illuminate\Support\Facades\Session;
     Route::group(['middleware' => 'auth:courier'], function () {
         Route::get('/Dashboard/Courier',[App\Http\Controllers\CurierController::class,'courierDash'])->name("futarDash");
         Route::post('/Dashboard/Courier/getorders',[App\Http\Controllers\CurierController::class,'getOrders']);
+        Route::post('/Dashboard/Courier/getdetailedorder',[App\Http\Controllers\CurierController::class,'getDetailedOrder']);
         Route::post('/Dashboard/Courier/acceptOrder',[App\Http\Controllers\CurierController::class,'acceptOrder']);
         Route::get('/Dashboard/Courier/OngoingDelivery',[App\Http\Controllers\CurierController::class,'ongoingDelivery']);
         Route::post('/Dashboard/Courier/updateDelivery',[App\Http\Controllers\CurierController::class,'UpdateDelivery']);
@@ -112,4 +113,4 @@ Route::group(['middleware' => 'auth:user'], function () {
 ///////////////////////////////debug///////////////////////////////////////////
     Route::get('/teszt',[App\Http\Controllers\dbController::class,'teszt']);
     Route::post('addNewFood', [App\Http\Controllers\dbController::class,'addNewFood']);
-///////////////////////////////debug///////////////////////////////////////////
+////////////////////////////////debug/////////////////////////////////////////////
