@@ -78,16 +78,17 @@ full_price int [NOT NULL]-->
 
 
     
-<option value="1">Készpénz</option>
-<option selected="true" value="2">Kártya</option>
-<option selected="true" value="3">Onlyfans</option>
+<option value="1">Készpénz fizetés futárnál</option>
+<option value="2">Kártyás fizetés futárnál</option>
+<option  value="3">SZÉP kártyás fizetés futárnál</option>
+<option value="4">Átutalás</option>
         
     </select>
 <label>Végösszeg:</label>
 <input type="number" class="form-control" placeholder="{{$o -> full_price}}" name="full_price" required>
 @endforeach
 
-    <button type="submit"  value = "" class="btn btn-primary">Rendelés módosítása</button>
+    <button type="submit"  value = "" class="btn btn-primary mt-3">Rendelés módosítása</button>
   </form>
 </div>
 

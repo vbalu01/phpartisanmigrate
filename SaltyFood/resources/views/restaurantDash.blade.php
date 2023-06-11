@@ -181,13 +181,6 @@
                                      @endif
                                 ">Főoldal</a>
                             </li>
-                            <li><a href="#">Kategóriák</a>
-                                <ul class="header__menu__dropdown">
-                                    @foreach ($data['categories'] as $da => $e)
-                                        <li><a href="#">{{ $e->c_name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
                             @if ($data['allowedToOrder'])
                                 <li><a href="./shoppingCart">Kosár</a> </li>
                             @endif

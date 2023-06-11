@@ -149,8 +149,8 @@
                                             @if (!$data['allowedToOrder'])
                                                 <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
                                             @endif
-                                            <li><a href="/logout">Profil</a></li>
-                                            <li><a href="/logout">Kijelentkés</a></li>
+                                            <!--<li><a href="/logout">Profil</a></li>-->
+                                            <li><a href="/logout">Kijelentkezés</a></li>
                                         </ul>
                                     </div>
                                 </div>

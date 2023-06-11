@@ -75,14 +75,18 @@ class MainController extends Controller
         $tmp_r = DB::table('restaurants')->select(['id', 'email', 'r_name', 'address', 'city_postalcode'])->where([['available', '=', true]])->inRandomOrder()->take(8)->get();
         $tmp_f = DB::table('foods')->select(['id', 'c_id', 'f_name', 'description', 'price', 'img_src'])->where([['available', '=', true]])->inRandomOrder()->take(10)->get();
         $tmp_g = DB::table('categories')->select(['id', 'c_name'])->where([['available', '=', true]])->inRandomOrder()->get()->random(8);
-
+        
         $loggedin = false;
         $usermail = "";
+        $allowedtoOrder=true;
+        if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+            $allowedtoOrder=false;
+        }
         if (Auth::user()!=null) {
             $loggedin = true;
             $usermail = Auth::user()->email;
         }
-        return view('shop')->with('data', ['loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
+        return view('shop')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
 
 
 
@@ -125,13 +129,17 @@ class MainController extends Controller
                 return redirect('/User/shoppingCart');
             }
         }
+        $allowedtoOrder=true;
+        if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
+            $allowedtoOrder=false;
+        }
 
         if (Auth::user()!=null) {
             $loggedin = true;
             $userid = Auth::user()->id;
             $usermail = Auth::user()->email;
         }
-        return view('shoppingCart')->with('data', ['loggedIn'=>$loggedin,'usermail'=> $usermail,'userid'=> $userid]);
+        return view('shoppingCart')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=> $usermail,'userid'=> $userid]);
 
 
 
@@ -154,7 +162,7 @@ class MainController extends Controller
         if (Auth::guard('courier')->check()||Auth::guard('restaurant')->check()) {
             $allowedtoOrder=false;
         }
-        return view('shop')->with('data', ['allowedToOrder'=> $allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
+        return view('shop')->with('data', ['allowedToOrder'=>$allowedtoOrder,'loggedIn'=>$loggedin,'usermail'=>$usermail, 'restaurants'=>$tmp_r, 'foods' =>$tmp_f, 'categories' =>$tmp_g]);
 
     }
 

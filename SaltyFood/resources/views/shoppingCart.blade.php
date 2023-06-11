@@ -64,7 +64,7 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="/">Főoldal</a></li>
-                <li><a href="/shop">Étterem</a></li>
+                <!--<li><a href="/shop">Étterem</a></li>-->
 
                 <li><a href="/shoppingCart">Kosár</a></li>
                 <li><a href="payment">Fizetés</a></li>
@@ -132,7 +132,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="/">Főoldal</a></li>
-                            <li><a href="/shop">Étterem</a></li>
+                           <!-- <li><a href="/shop">Étterem</a></li>-->
 
                             <li class="active"><a href="./blog.html">Kosár</a></li>
 
