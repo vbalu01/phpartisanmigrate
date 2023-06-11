@@ -18,6 +18,7 @@ class ShoppingCart{
 
     Save(){
         localStorage.setItem('shoppingCart', JSON.stringify(this.cartItems));
+        $('.cartcount').text(this.GetCount());
     }
 
     Clear(){
