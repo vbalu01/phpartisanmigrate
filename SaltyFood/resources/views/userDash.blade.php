@@ -7,7 +7,7 @@
     <meta name="keywords" content="salty, food,  html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>User</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -21,6 +21,32 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+
+    <style>
+        .collapsible {
+          background-color: #777;
+          color: white;
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+        }
+        
+        .active, .collapsible:hover {
+          background-color: #555;
+        }
+        
+        .content {
+          padding: 0 18px;
+          display: none;
+          overflow: hidden;
+          background-color: #f1f1f1;
+        }
+        </style>
+
 </head>
 
 <body>
@@ -256,7 +282,7 @@
                         <h2>Salty Shop</h2>
                         <div class="breadcrumb__option">
                             <a href="/">Főoldal</a>
-                            <span>Admin</span>
+                            <span>User</span>
                         </div>
                     </div>
                 </div>
@@ -334,6 +360,47 @@
                                 </div>
                                 <div>
                                     <h3>Korábbi rendelések</h3>
+                                    @foreach ($data['orders'] as $order)
+                                        <button type="button" class="collapsible">Rendelés {{ $order->o_date }} - 
+                                            @if ($order->o_status == 0)Feldolgozás alatt @endif
+                                            @if ($order->o_status == 1)Étel készítés alatt @endif
+                                            @if ($order->o_status == 2)Kiszállítás alatt @endif
+                                            @if ($order->o_status == 3)Rendelés lezárva @endif
+                                        </button>
+                                        <?php $tmpData = ""; ?>
+                                        <div class="content">
+                                            <h3>Tételek</h3>
+                                            <table class="table">
+                                                <thead>
+                                                    <th>Étel</th>
+                                                    <th>Mennyiség</th>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data['orderFoods'] as $ofoods)
+                                                        @foreach ($ofoods as $food)
+                                                            @if($food->o_id == $order->id)
+                                                                @foreach ($data['foods'] as $f)
+                                                                    @if ($f->id == $food->f_id)
+                                                                        <tr>
+                                                                            <td>
+                                                                                <p>{{ $f->f_name }}</p>
+                                                                                @if ($f->img_src != null && $f->img_src != "")
+                                                                                    <br><img src="{{ $f->img_src }}" style="max-width: 7%; max-height:7%;">
+                                                                                @endif                                                                      </td>
+                                                                            <td>{{ $food->count }}</td>
+                                                                            <?php $tmpData = $tmpData.$food->f_id.":".$food->count.";" ?>
+                                                                        </tr>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                            <label>Végösszeg: {{ $order->full_price }} Ft. </label><button style="margin-left: 3%; margin-bottom:1%;" class="btn btn-warning"
+                                            onclick="addAgainToBasket('{{ $tmpData }}');">Újra kosárba rakom</button><label style="font-size: 10px;"><i>(Az árak változhattak!)</i></label>
+                                        </div>                                        
+                                    @endforeach
                                 </div>
                                 
                             </div>
@@ -442,6 +509,8 @@
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/fancyTable.js') }}"></script>
+    <script src="{{ asset('js/models.js') }}"></script>
+    <script src="{{ asset('js/shoppingCart.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -499,8 +568,35 @@
                 }
             });
          }
-    </script>
 
+         function addAgainToBasket(data) {
+            const splitted = data.split(';');
+            for(const data of splitted){
+                const tmp = data.split(':');
+                let id = tmp[0];
+                let count = tmp[1];
+                shoppingCart.Add(id, count);
+            }
+            alert('A tételek kosárba kerültek!');
+         }
+    </script>
+    
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+    </script>
 
 </body>
 

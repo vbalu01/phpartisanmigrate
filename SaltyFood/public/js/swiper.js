@@ -148,7 +148,9 @@ function acceptJob(orderID) {
 }
 
 
-navigator.serviceWorker.register('../serviceWorker.js', { scope: './' });
+navigator.serviceWorker.register('../serviceWorker.js', {
+    scope: "/",
+  });
 function requestPermission() {
     Notification.requestPermission().then((permission) => {
         if (permission === 'granted') {
@@ -165,6 +167,26 @@ function requestPermission() {
                     console.log("sunscribed");
                     // subscription successful
                     fetch("/api/push-subscribe", {
+                        method: "post",
+                        body:JSON.stringify(subscription)
+                    }).then( alert("ok") );
+                });
+            });
+        }
+    });
+}
+function unsub() {
+    Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+            console.log("granted");
+            // get service worker
+            console.log( navigator.serviceWorker.ready);
+            navigator.serviceWorker.ready.then((sw) =>{
+                console.log("unsunscribing");
+                sw.pushManager.getSubscription().then((subscription) => {
+                    console.log("unsunscribed");
+                    // subscription successful
+                    fetch("/api/push-unsubscribe", {
                         method: "post",
                         body:JSON.stringify(subscription)
                     }).then( alert("ok") );

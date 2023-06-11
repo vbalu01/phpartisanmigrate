@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PushSubscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Minishlink\WebPush\Subscription;
@@ -213,7 +214,7 @@ class DashController extends Controller
             "VAPID"=>[
                         "publicKey" => "BDXLfLM4pXv3_ChmODNsXTk7E6YR8ZSE9lXe3XMWmjiI_9GQTrsoJeZq0Htzv3pnoBrq0g5iGOsvMaXJBXG5Gjk",
                         "privateKey" => "eqB3I-E5sD3j-y0LQy2HznrLBjYceKE15SG5fhZfKxA",
-                        "subject"=>"http://127.0.0.1/Dashboard",
+                        "subject"=>route('futarDash'),
                     ]
             ]);
             $array = array(
@@ -239,13 +240,36 @@ class DashController extends Controller
         }
 
         $addresses = DB::table('addresses')->select('id', 'a_name', 'city_id', 'address', 'phone', 'available', 'other')->where('u_id', Auth::user()->id)->get();
+        $ids = array();
+
+        foreach($addresses as $a){
+            array_push($ids, $a->id);
+        }
+
+        $orders = DB::table('orders')->whereIn('a_id', $ids)->select('id', 'o_status', 'payment_method', 'o_date', 'full_price')->orderByDesc('o_date')->get();
+        
+        $orderFoods = array();
+        $foods = array();
+
+        foreach($orders as $o){
+            array_push($orderFoods, DB::table('order_foods')->where('o_id', $o->id)->select('o_id', 'f_id', 'count')->get());
+        }
+
+        foreach($orderFoods as $of){
+            foreach($of as $f){
+                array_push($foods, DB::table('foods')->where('id', $f->f_id)->select('id', 'f_name', 'img_src')->first());
+            }
+        }
 
         return view('userDash')->with('data', [
             'loggedIn' => $loggedin,
             'usermail' => $usermail,
             'userId' => Auth::user()->id,
             'allowedToOrder' => $allowedtoOrder,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'orders' => $orders,
+            'orderFoods' => $orderFoods,
+            'foods' => $foods
         ]);
     }
 }
