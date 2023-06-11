@@ -35,8 +35,30 @@ use Illuminate\Support\Facades\Session;
         }
 
     })->name('register');
+
+    Route::get('/registerCourier', function () {
+        if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+            return redirect('/');
+        }else
+        {
+            return view('registerCourier',['wronglogin'=>false]);
+        }
+
+    })->name('register');
+
+    Route::get('/registerRestaurant', function () {
+        if (Auth::guard('user')->check()||Auth::guard('courier')->check()||Auth::guard('restaurant')->check()||Auth::guard('admin')->check()) {
+            return redirect('/');
+        }else
+        {
+            return view('registerRestaurant',['wronglogin'=>false]);
+        }
+
+    })->name('register');
     Route::post('/logincheck', [\App\Http\Controllers\authController::class,'login']);
     Route::post('/registercheck', [\App\Http\Controllers\authController::class,'userRegister']);
+    Route::post('/registercheckCourier', [\App\Http\Controllers\authController::class,'courierRegister']);
+    Route::post('/registercheckRestaurant', [\App\Http\Controllers\authController::class,'restaurantRegister']);
     Route::get('/',[App\Http\Controllers\MainController::class,'mainPage'])->name('main');
     Route::get('/shop',[App\Http\Controllers\MainController::class,'shoppingPage'])->name('shop');
     Route::get('/shoppingCart',[App\Http\Controllers\MainController::class,'shoppingCartPage'])->name('shoppingCart');

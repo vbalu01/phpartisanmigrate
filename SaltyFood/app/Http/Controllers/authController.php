@@ -32,6 +32,7 @@ class authController extends Controller
         if ($loginEntity->role=="admin") {
             Auth::guard('admin')->login($loginEntity);
         }
+
         else{
             Auth::guard('user')->login($loginEntity);
         }
@@ -116,8 +117,105 @@ public function userRegister(Request $request)
 }
 
 
+/*Table app.couriers{
+    id int [PK, increment]
+    email varcahr [NOT NULL]
+    c_name varcahr [NOT NULL]
+    password varcahr [NOT NULL]
+    available boolean [NOT NULL]
+    }*/
+
+public function courierRegister(Request $request)
+{
+    /*             $table->string("email",255);
+    $table->string("password",255);
+    $table->string("u_fullname",255);
+    $table->boolean("available");*/
+
+    $email=$request->post('email');
+    $password=$request->post('password');
+    $c_name=$request->post('c_name');
+    $available=$request->post('available');
+
+    $loginEntity=null;
+    $loginEntity = Users::where([
+        'email' => $email
+    ])->first();
+    if ($loginEntity==null) {
+        $loginEntity = couriers::where([
+            'email' => $email
+        ])->first();
+
+    }
+    if($loginEntity == null) {
+        $f = null;
+        $f = new couriers();
+    try {
+        $f->email =$email;
+        $f->password = hasheles($password);
+        $f->c_name=$c_name;
+        $f->available=$available;
+        $f->save();
+        $a='Sikeres mentés. Azonosító: ';
+        return redirect('/login')->with('message', $a);
+    } catch (\Throwable $th) {
+        dd($th);
+        return redirect('/login')->with('alert', 'Sikertelen mentés');
+    }
+}
 
 }
+
+public function restaurantRegister(Request $request)
+{
+    /*             $table->string("email",255);
+    $table->string("password",255);
+    $table->string("u_fullname",255);
+    $table->boolean("available");*/
+
+    $email=$request->post('email');
+    $password=$request->post('password');
+    $r_name=$request->post('r_name');
+    $address=$request->post('address');
+    $city_postalcode=$request->post('city_postalcode');
+    $available=$request->post('available');
+
+    $loginEntity=null;
+    $loginEntity = Users::where([
+        'email' => $email
+    ])->first();
+    if ($loginEntity==null) {
+        $loginEntity = restaurants::where([
+            'email' => $email
+        ])->first();
+
+    }
+    if($loginEntity == null) {
+        $f = null;
+        $f = new restaurants();
+    try {
+        $f->email =$email;
+        $f->password = hasheles($password);
+        $f->r_name=$r_name;
+        $f->address=$address;
+        $f->city_postalcode=$city_postalcode;
+        $f->available=$available;
+        $f->save();
+        $a='Sikeres mentés. Azonosító: ';
+        return redirect('/login')->with('message', $a);
+    } catch (\Throwable $th) {
+        dd($th);
+        return redirect('/login')->with('alert', 'Sikertelen mentés');
+    }
+}
+
+}
+
+
+
+}
+
+
 
 function hasheles($pw)
 {

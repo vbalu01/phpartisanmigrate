@@ -4,7 +4,7 @@
 <!-- Mirrored from colorlib.com/etc/lf/Login_v6/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 23 Apr 2023 18:40:49 GMT -->
 
 <head>
-    <title>Regisztráció felhasználóként</title>
+    <title>Regisztráció futárként</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -96,12 +96,18 @@
         })(window, document);
     </script>
 </head>
-
+<!-- Table app.couriers{
+id int [PK, increment]
+email varcahr [NOT NULL]
+c_name varcahr [NOT NULL]
+password varcahr [NOT NULL]
+available boolean [NOT NULL]
+}-->
 <body>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100 p-t-20 p-b-20">
-                <form action="/registercheck" method="post" class="login100-form validate-form">
+                <form action="/registercheckCourier" method="post" class="login100-form validate-form">
                     @csrf
                     <span class="login100-form-title p-b-70">
                         Regisztrálás
@@ -110,27 +116,39 @@
                         <img src="img/login_images/avatar-01.png" alt="AVATAR">
                     </span>
                     <div class="wrap-input100 validate-input m-t-50 m-b-35" data-validate="Írd be az email címedet!">
-                        <input class="input100" type="text" name="email"  id="email">
+                        <input class="input100" type="text" name="email"  id="email" required>
                         <span class="focus-input100" data-placeholder="Email"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate="Írd be a teljes nevedet!">
-                        <input class="input100" type="text" name="fname"  id="fname">
-                        <span class="focus-input100" data-placeholder="Teljes név"></span>
+                    <div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate="Írd be a futár nevét!">
+                        <input class="input100" type="text" name="c_name"  id="c_name" required>
+                        <span class="focus-input100" data-placeholder="Futár Rómeó"></span>
                     </div>
-                    <div class="wrap-input100 validate-input m-b-50" data-validate="Írd be a jelszavad!">
-                        <input class="input100" type="password" name="pw"  id="pw">
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Írd be a jelszavad!" >
+                        <input class="input100" type="password" name="pw"  id="pw" required>
                         <span class="focus-input100" data-placeholder="Jelszó"></span>
                     </div>
+                    <div class="wrap-input100 validate-input m-b-50" data-validate="Add meg az elérhetőségét!">
+                        <!--<input class="input100" type="password" name="available"  id="available">-->
+
+                        <select class="input100" name="available">
+
+                                <option value="0">Nem elérhető</option>
+                                <option selected value="1">Elérhető</option>
+
+                                </select>
+                    </div>
+
+               
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
-                            Regisztrálás felhasználóként
+                            Regisztrálás futárként
                         </button>
                     </div>
              <div class="row mt-3">
              <div class="col-lg-12">
-                    <a href="/registerCourier" class="btn btn-info "> 
-                            Regisztráció inkább futárként
+                    <a href="/register" class="btn btn-info "> 
+                            Regisztráció inkább felhasználóként
                         </a> 
     </div>
             <div class=" col-lg-12 pt-3 ">
