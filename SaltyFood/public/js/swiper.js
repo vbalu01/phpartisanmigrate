@@ -195,3 +195,69 @@ function unsub() {
         }
     });
 }
+
+
+$(document).ready(function() {
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $.ajax({
+        type: "POST",
+        url: '/Dashboard/Courier/getorders',
+        async: false,
+        success: function(response){
+            const obj = JSON.parse(response);
+            console.log(obj);
+            obj.forEach(element => {
+                if (element.multiplaceCount>1) {
+                    $( "#cards" ).append(
+                    "<div class='tinder--card' value='"+element.orderID+"'>"+
+                        "<h3>"+element.multiplaceCount+" Felvételi pont</h3>"+
+                        "<h3>Kiszállítás: </h3>"+
+                        "<h3>"+element.u_fullname +"</h3>"+
+                        "<h4>Szállítási cím: "+element.userAddr+"</h4>"+
+                    "</div>");
+
+                }if (element.multiplaceCount==1) {
+                    getDetailedOrder(element.orderID);
+                }
+
+            });
+        }
+    });
+
+
+});
+
+function getDetailedOrder(orderID) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+    $.ajax({
+    type: "POST",
+    url: '/Dashboard/Courier/getdetailedorder',
+    data:
+    {
+        orderID:orderID,
+    },
+    async: false,
+    success: function(response){
+        const obj = JSON.parse(response);
+        console.log(obj);
+            $( "#cards" ).append(
+            "<div class='tinder--card' value='"+obj.orderID+"'>"+
+                "<h3>Felvételi üzlet: </h3>"+
+                "<h3>"+obj.r_name+"</h3>"+
+                "<h4>Felvételi cím: "+obj.restAddr+"</h3>"+
+                "<h3>Kiszállítás: </h3>"+
+                "<h3>"+obj.u_fullname +"</h3>"+
+                "<h4>Szállítási cím: "+obj.userAddr+"</h4>"+
+                "<p>Termék: "+obj.f_name+"</p>"+
+            "</div>");
+    }
+})
+};
