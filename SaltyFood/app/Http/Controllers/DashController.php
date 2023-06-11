@@ -25,6 +25,9 @@ class DashController extends Controller
         {
             return redirect("/Dashboard/Admin");
         }
+        elseif(Auth::guard('user')->check()){
+            return redirect("/Dashboard/User");
+        }
     }
 
 
@@ -224,5 +227,25 @@ class DashController extends Controller
             );
             error_log("notificatin Sent");
         }
+    }
+
+    function userDash() {
+        $loggedin = false;
+        $allowedtoOrder=true;
+        $usermail = "";
+        if (Auth::user()!=null) {
+            $loggedin = true;
+            $usermail = Auth::user()->email;
+        }
+
+        $addresses = DB::table('addresses')->select('id', 'a_name', 'city_id', 'address', 'phone', 'available', 'other')->where('u_id', Auth::user()->id)->get();
+
+        return view('userDash')->with('data', [
+            'loggedIn' => $loggedin,
+            'usermail' => $usermail,
+            'userId' => Auth::user()->id,
+            'allowedToOrder' => $allowedtoOrder,
+            'addresses' => $addresses
+        ]);
     }
 }
