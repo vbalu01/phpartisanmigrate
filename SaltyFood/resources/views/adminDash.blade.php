@@ -276,7 +276,7 @@
     <section class="product spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-5">
+                <div class="col-lg-1 col-md-1">
                     <div class="sidebar">
                         <div class="sidebar__item">
                         </div>
@@ -285,25 +285,7 @@
                         <div class="sidebar__item sidebar__item__color--option">
                         </div>
                         <div class="sidebar__item">
-                            <h4>Műveletek</h4>
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                <a href="/Dashboard/Restaurant/insertOrder">Rendelés felvétele</a>
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    Rendelés törlése
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                     Rendelés módosítása
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
+                            
                         </div>
                         <div class="sidebar__item">
                             <div class="latest-product__text">
@@ -313,7 +295,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-7">
+                <div class="col-lg-10 col-md-10">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
                             <div>
