@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}" type="text/css">
 </head>
 
 <body>
@@ -58,13 +59,16 @@
                     <a href="#"><i class="fa fa-user"></i> Profil</a>
                     @if (!$data['allowedToOrder'])
                         <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
+                    @else
+                    <li><a href="/Dashboard/User">Felhasználó profil</a></li>
                     @endif
+
                 </div>
             @else
                 <div class="header__top__right__auth">
                     <a href="/login"><i class="fa fa-user"></i> Bejelentkezés/Regisztráció</a>
                 </div>
-          
+
             @endif
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -131,7 +135,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
-                   
+
                            <!-- <div class="header__top__right__language">
                                 <img src="{{ asset('img/hu-ncf.jpg') }}" alt="">
                                 <div>Magyar</div>
@@ -148,6 +152,8 @@
                                         <ul>
                                             @if (!$data['allowedToOrder'])
                                                 <li><a href="/Dashboard">Partner Kezelőfelület</a></li>
+                                            @else
+                                            <li><a href="/Dashboard/User">Felhasználó profil</a></li>
                                             @endif
                                             <!--<li><a href="/logout">Profil</a></li>-->
                                             <li><a href="/logout">Kijelentkezés</a></li>
@@ -188,13 +194,13 @@
                                      @endif
                                 ">Főoldal</a>
                             </li>
-                            <li><a href="#">Kategóriák</a>
+                            <!--<li><a href="#">Kategóriák</a>
                                 <ul class="header__menu__dropdown">
                                     @foreach ($data['categories'] as $da => $e)
                                         <li><a href="#">{{ $e->c_name }}</a></li>
                                     @endforeach
                                 </ul>
-                            </li>
+                            </li>-->
                             @if ($data['allowedToOrder'])
                                 <li><a href="./shoppingCart">Kosár</a> </li>
                             @endif
@@ -298,8 +304,9 @@
                                 <div class="categories__item set-bg"
                                     data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
                                     <h5><a  class="food_name">{{ $e->f_name }}</a></h5>
+                                    <p  class="description" hidden>{{ $e->description }}</p>
                                     <ul class="featured__item__pic__hover">
-                                        <li><a href="#"><i class="fa  fa-info"></i></a></li>
+                                        <li class="InfoModal"><a ><i class="fa  fa-info"></i></a></li>
                                         @if ($data['allowedToOrder'])
                                             <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
                                         @endif
@@ -403,8 +410,10 @@
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg"
                                 data-setbg="{{ $e->img_src != '' ? $e->img_src : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7Wc-pDXUXO2V-KQh_5sQ9g5MGrAmvo3pTLA&usqp=CAU' }}">
+                                <h5 hidden><a  class="food_name">{{ $e->f_name }}</a></h5>
+                                <p  class="description" hidden>{{ $e->description }}</p>
                                 <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa  fa-info"></i></a></li>
+                                    <li class="InfoModal"><a ><i class="fa  fa-info"></i></a></li>
                                     @if ($data['allowedToOrder'])
                                     <li><a onclick="shoppingCart.Add({{ $e->id }},1);"><i class="fa fa-shopping-cart"></i></a></li>
                                     @endif
@@ -646,6 +655,29 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+
+<!-- Modal -->
+<div class="modal-wrapper">
+    <div class="modal">
+      <div class="head">
+        <a class="btn-close trigger">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="content">
+          <div class="modal-internal">
+            <div class="modimdiv">
+                <img class="modalimg" src="img_girl.jpg" alt="Girl in a jacket" width="500" height="600">
+            </div>
+
+            <h3 class="modaldesc">Good Job!</h3>
+          </div>
+      </div>
+    </div>
+  </div>
+<!-- Modal end -->
+
+
 
     <!-- Js Plugins -->
     <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
