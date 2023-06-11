@@ -110,16 +110,16 @@
                         <img src="img/login_images/avatar-01.png" alt="AVATAR">
                     </span>
                     <div class="wrap-input100 validate-input m-t-50 m-b-35" data-validate="Írd be az email címedet!">
-                        <input class="input100" type="text" name="email"  id="email">
+                        <input class="input100" type="text" name="email"  id="email" required>
                         <span class="focus-input100" data-placeholder="Email"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input m-t-40 m-b-35" data-validate="Írd be a teljes nevedet!">
-                        <input class="input100" type="text" name="fname"  id="fname">
+                        <input class="input100" type="text" name="fname"  id="fname" required>
                         <span class="focus-input100" data-placeholder="Teljes név"></span>
                     </div>
                     <div class="wrap-input100 validate-input m-b-50" data-validate="Írd be a jelszavad!">
-                        <input class="input100" type="password" name="pw"  id="pw">
+                        <input class="input100" type="password" name="pw"  id="pw" required>
                         <span class="focus-input100" data-placeholder="Jelszó"></span>
                     </div>
                     <div class="container-login100-form-btn">
