@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use SpomkyLabs\Pki\ASN1\Type\Primitive\Real;
 
 class dbController extends Controller
 {
@@ -73,19 +74,44 @@ class dbController extends Controller
         }
     }
 
-    public function addNewCategory(Request $request){
-        if($request->has('c_name')){ //Beérkező OK
+    public function addNewAddress(Request $request){
+        if($request->has('a_name') && $request->has('u_id') && $request->has('city_id') && $request->has('address') && $request->has('phone')){//Adat ellenőrzés, other opcionális
+            $id = DB::table('addresses')->insertGetId([
+                'u_id' => $request->input('u_id'),
+                'a_name' => $request->input('a_name'),
+                'city_id' => $request->input('city_id'),
+                'address' => $request->input('address'),
+                'phone' => $request->input('phone'),
+                'other' => $request->input('other'),
+                'available' => true
+            ]);
 
-        }else{ //Hiányos adatok
-
+            if($id != null && $id != 0){
+                return['Success' => true, 'Message' => "Sikeres rögzítés",'id' => $id];
+            }else{
+                return['Success' => false, 'Message' => "Ismeretlen hiba történt!"];
+            }
+        }else{//Nem érkezett meg minden adat
+            return ['Success' => false, 'Message' => 'Hiányos adatok!'];
         }
     }
 
-    public function addNewAddress(Request $request){
-        if($request->has('u_id') && $request->has('a_name') && $request->has('city_id') && $request->has('address') && $request->has('phone')){//Adat ellenőrzés, other opcionális
-
+    public function updateAddress(Request $request){
+        if($request->has('a_id') && $request->has('available') && $request->has('a_name') && $request->has('city_id') && $request->has('address') && $request->has('phone')){//Adat ellenőrzés, other opcionális
+            if(DB::table('addresses')->where('id', $request->input('a_id'))->update([
+                'a_name' => $request->input('a_name'),
+                'city_id' => $request->input('city_id'),
+                'address' => $request->input('address'),
+                'phone' => $request->input('phone'),
+                'other' => $request->input('other'),
+                'available' => $request->input('available')
+            ]) == 1){
+                return ['Success' => true, 'Message' => 'Sikeres módosítás!'];
+            }else{
+                return ['Success' => false, 'Message' => 'Nem történt módosítás!'];
+            }
         }else{//Nem érkezett meg minden adat
-
+            return ['Success' => false, 'Message' => 'Hiányos adatok!'];
         }
     }
 
