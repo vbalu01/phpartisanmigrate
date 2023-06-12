@@ -269,12 +269,12 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
-                        <div class="hero__search__form">
+                        <!--<div class="hero__search__form">
                             <form action="#">
                                 <input type="text" placeholder="Mit keres?">
                                 <button type="submit" class="site-btn">Keresés</button>
                             </form>
-                        </div>
+                        </div>-->
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
